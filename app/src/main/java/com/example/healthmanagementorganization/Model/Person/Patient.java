@@ -13,8 +13,8 @@ public class Patient extends Person {
     /**
      * add medicalIssue to the set
      *
-     * @param medicalIssue
-     * @return
+     * @param medicalIssue the medicalIssue to be added
+     * @return true if the medicalIssue is added successfully
      */
     private boolean addMedicalIssue(MedicalIssue medicalIssue) {
         return medicalIssues.add(medicalIssue);
@@ -23,8 +23,8 @@ public class Patient extends Person {
     /**
      * remove medicalIssue from the set
      *
-     * @param medicalIssue
-     * @return
+     * @param medicalIssue the medicalIssue to be removed
+     * @return true if the medicalIssue is removed successfully
      */
     private boolean removeMedicalIssue(MedicalIssue medicalIssue) {
         return medicalIssues.remove(medicalIssue);

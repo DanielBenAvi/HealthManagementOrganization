@@ -48,9 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Find the Views in the layout
+     */
     private void findViews() {
         login_APB_logout = findViewById(R.id.login_APB_logout);
     }
+
 
     // See: https://developer.android.com/training/basics/intents/result
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(new FirebaseAuthUIActivityResultContract(), new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
@@ -60,9 +64,19 @@ public class LoginActivity extends AppCompatActivity {
         }
     });
 
+    /**
+     * ????????????
+     *
+     * @param result ?????
+     */
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
     }
 
+
+    /**
+     * Launch the sign-in flow using FirebaseUI, which provides the UI for
+     * email and password.
+     */
     private void login() {
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build());
@@ -72,7 +86,9 @@ public class LoginActivity extends AppCompatActivity {
         signInLauncher.launch(signInIntent);
     }
 
-    // change activity after login
+    /**
+     * Change the activity to the main activity
+     */
     private void changeActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
