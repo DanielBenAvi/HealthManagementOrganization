@@ -144,4 +144,14 @@ public class Appointment {
         this.endTime = endTime;
         return true;
     }
+
+
+    /**
+     * get the appointmentID
+     *
+     * @return the appointmentID
+     */
+    public String getAppointmentID() {
+        return appointmentID;
+    }
 }
