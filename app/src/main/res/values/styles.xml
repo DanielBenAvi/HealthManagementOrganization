@@ -21,6 +21,20 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textAllCaps">false</item>
         <item name="autoSizeTextType">uniform</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:autoSizeMaxTextSize">20sp</item>
+        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:backgroundTint">@color/blue</item>
+    </style>
+
+
+    <!--    edit text style-->
+    <style name="EditText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:layout_marginVertical">20dp</item>
         <item name="android:autoSizeMaxTextSize">20sp</item>
         <item name="android:fontFamily">@font/rubik_light</item>
         <item name="android:gravity">center</item>

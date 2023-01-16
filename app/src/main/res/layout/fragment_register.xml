@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.Login.RegisterFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_firstname"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="First Name" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_lastname"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Last Name" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_email"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Email" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_password"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Password" />
+
+    <RadioGroup
+        android:id="@+id/register_RG_type"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/register_APRB_doctor"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Doctor" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/register_APRB_patient"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Patient" />
+
+    </RadioGroup>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_specialization"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Speciality"
+        android:visibility="invisible" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/register_CLPB_progress"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="invisible" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_ACBTN_register"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Register" />
+
+
+
+
+</LinearLayout>

@@ -2,127 +2,105 @@ package com.example.healthmanagementorganization;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
+import com.example.healthmanagementorganization.CallBacks.LoginBaseFragment_Callback;
+import com.example.healthmanagementorganization.CallBacks.LoginFragment_Callback;
+import com.example.healthmanagementorganization.CallBacks.RegisterFragment_Callback;
+import com.example.healthmanagementorganization.Fragments.Login.LoginFragment;
+import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment;
+import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    AppCompatButton login_APB_logout;
+    private LoginBaseFragment loginBaseFragment;
+    private LoginFragment loginFragment;
+    private RegisterFragment registerFragment;
 
+
+    LoginBaseFragment_Callback loginBaseFragment_Callback = new LoginBaseFragment_Callback() {
+        @Override
+        public void LoginFragment() {
+            changeTitle("Login");
+            getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
+
+
+        }
+
+        @Override
+        public void RegisterFragment() {
+            changeTitle("Register");
+            getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, registerFragment).commit();
+        }
+    };
+
+    RegisterFragment_Callback registerFragment_Callback = new RegisterFragment_Callback() {
+
+
+        @Override
+        public void onRegisterSuccess() {
+            Toast.makeText(LoginActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
+        }
+    };
+
+    LoginFragment_Callback loginFragment_Callback = new LoginFragment_Callback() {
+
+        @Override
+        public void onLoginSuccess() {
+            changeActivityToMainActivity();
+        }
+    };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            changeActivityToMainActivity();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        this.setTitle(R.string.app_name_2);
+        changeTitle("Login");
+
         findViews();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            login();
-        } else {
-            String uid = user.getUid();
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-        }
-
-
         initViews();
+
+    }
+
+    private void findViews() {
+        loginBaseFragment = new LoginBaseFragment();
+        loginBaseFragment.setFragmentCallback(loginBaseFragment_Callback);
+        loginFragment = new LoginFragment();
+        loginFragment.setFragmentCallback(loginFragment_Callback);
+        registerFragment = new RegisterFragment();
+        registerFragment.setFragmentCallback(registerFragment_Callback);
+
+
     }
 
     private void initViews() {
-        login_APB_logout.setOnClickListener(v -> {
-            mAuth.signOut();
-            login();
-        });
-    }
-
-    /**
-     * Find the Views in the layout
-     */
-    private void findViews() {
-        login_APB_logout = findViewById(R.id.login_APB_logout);
-    }
-
-
-    // See: https://developer.android.com/training/basics/intents/result
-    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(new FirebaseAuthUIActivityResultContract(), this::onSignInResult);
-
-    /**
-     * Start the sign in activity.
-     *
-     * @param result if the sign in was successful or not
-     */
-    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
-
-        // user is signed in!
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-
-
-        String uid = user.getUid();
-
-        // change title to user name
-        this.setTitle("Hello " + user.getDisplayName());
-
-        // TODO: check if user is in database
-
-//        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("users");
-//
-//        ArrayList<String> users = new ArrayList<>();
-//        users.add(uid);
-//
-//        myRef.setValue(users);
+        getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginBaseFragment).commit();
 
     }
 
-
-    /**
-     * Launch the sign-in flow using FirebaseUI, which provides the UI for
-     * email and password.
-     */
-    private void login() {
-        // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build());
-
-        // Create and launch sign-in intent
-        Intent signInIntent = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).setLogo(R.drawable.healthicon).setTheme(R.style.Theme_HealthManagementOrganization).build();
-        signInLauncher.launch(signInIntent);
-
-
+    private void changeTitle(String t) {
+        this.setTitle("" + t);
     }
 
-    /**
-     * Change the activity to the main activity
-     */
-    private void changeActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void changeActivityToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
-
 
 }
