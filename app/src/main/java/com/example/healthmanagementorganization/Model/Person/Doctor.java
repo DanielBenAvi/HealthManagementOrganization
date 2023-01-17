@@ -2,32 +2,19 @@ package com.example.healthmanagementorganization.Model.Person;
 
 import android.util.Log;
 
-public class Doctor extends Person {
+import com.example.healthmanagementorganization.Model.DataBase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class Doctor extends Person implements DataBase {
     private String specialty = "";
 
     public Doctor() {
         super();
     }
 
-    /**
-     * set specialty
-     *
-     * @param specialty the specialty
-     * @return null if the specialty is null or empty, otherwise return this
-     */
-    public Doctor setSpecialty(String specialty) {
-        // check if the specialty is null or empty
-        if (specialty == null || specialty.isEmpty()) {
-            Log.d("Doctor", "setSpecialty: specialty is null or empty");
-            return null;
-        }
-        // check if the specialty is valid using regex
-        if (!specialty.matches("^[a-zA-Z ]+$")) {
-            Log.d("Doctor", "setSpecialty: specialty is not valid");
-            return null;
-        }
-        // todo: check if the specialty is valid some list of specialties
 
+    public Doctor setSpecialty(String specialty) {
 
         this.specialty = specialty;
         return this;
@@ -40,5 +27,14 @@ public class Doctor extends Person {
      */
     public String getSpecialty() {
         return specialty;
+    }
+
+    @Override
+    public void loadToDataBase() {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference("Doctors");
+        String id = this.getUid() + "";
+        ref.child(id).setValue(this);
+
     }
 }

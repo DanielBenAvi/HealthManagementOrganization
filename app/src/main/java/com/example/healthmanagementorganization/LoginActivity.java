@@ -1,9 +1,14 @@
 package com.example.healthmanagementorganization;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthmanagementorganization.CallBacks.LoginBaseFragment_Callback;
@@ -12,6 +17,7 @@ import com.example.healthmanagementorganization.CallBacks.RegisterFragment_Callb
 import com.example.healthmanagementorganization.Fragments.Login.LoginFragment;
 import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment;
 import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment;
+import com.example.healthmanagementorganization.Model.Person.Person;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onRegisterSuccess() {
+
+
             Toast.makeText(LoginActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
         }
@@ -76,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         initViews();
 
     }
+
 
     private void findViews() {
         loginBaseFragment = new LoginBaseFragment();

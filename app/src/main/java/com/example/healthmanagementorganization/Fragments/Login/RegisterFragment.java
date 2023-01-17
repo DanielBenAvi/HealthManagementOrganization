@@ -32,6 +32,8 @@ public class RegisterFragment extends Fragment {
     private AppCompatEditText register_ACET_firstname;
     private AppCompatEditText register_ACET_lastname;
     private AppCompatEditText register_ACET_email;
+
+    private AppCompatEditText register_ACET_phone;
     private AppCompatEditText register_ACET_password;
     private AppCompatRadioButton register_APRB_doctor;
     private AppCompatRadioButton register_APRB_patient;
@@ -89,6 +91,8 @@ public class RegisterFragment extends Fragment {
             flag = checkIfEmpty(lastname, "add lastname");
             String email = register_ACET_email.getText() + "";
             flag = checkIfEmpty(email, "add email");
+            String phone = register_ACET_phone.getText() + "";
+            flag = checkIfEmpty(phone, "add phone");
             String password = register_ACET_password.getText() + "";
             flag = checkIfEmpty(password, "add password");
             String specialization = register_ACET_specialization.getText() + "";
@@ -97,33 +101,42 @@ public class RegisterFragment extends Fragment {
             }
 
             if (!flag) {
+
+
                 // register in firebase
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        register_CLPB_progress.setVisibility(View.INVISIBLE);
                         if (task.isSuccessful()) {
-                            String uid = "" + mAuth.getCurrentUser();
+                            String uid = "" + mAuth.getCurrentUser().getUid();
 
                             // Check if the user is a doctor or a patient
                             if (register_APRB_doctor.isChecked()) {
-                                Doctor doctor = new Doctor();
-                                doctor.setUid(uid);
-                                doctor.setFirstName(firstname);
-                                doctor.setLastName(lastname);
-                                doctor.setEmail(email);
-                                doctor.setSpecialty(specialization);
+                                Doctor d = new Doctor();
+                                d.setUid(uid);
+                                d.setFirstName(firstname);
+                                d.setLastName(lastname);
+                                d.setEmail(email);
+                                d.setPhone(phone);
+                                d.setSpecialty(specialization);
+                                d.loadToDataBase();
+
 
                             } else {
-                                Patient patient = new Patient();
-                                patient.setUid(uid);
-                                patient.setFirstName(firstname);
-                                patient.setLastName(lastname);
-                                patient.setEmail(email);
+                                Patient p = new Patient();
+                                p.setUid(uid);
+                                p.setFirstName(firstname);
+                                p.setLastName(lastname);
+                                p.setEmail(email);
+                                p.setPhone(phone);
+
+                                p.loadToDataBase();
+
 
                             }
                             // go to login fragment
                             registerFragment_Callback.onRegisterSuccess();
+                            register_CLPB_progress.setVisibility(View.INVISIBLE);
 
 
                         } else {
@@ -145,7 +158,6 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             return true;
         }
-
         return false;
     }
 

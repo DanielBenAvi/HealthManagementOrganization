@@ -1,41 +1,30 @@
 package com.example.healthmanagementorganization.Model.Person;
 
-import java.util.HashSet;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
-public class Patient extends Person {
-    private HashSet<MedicalIssue> medicalIssues = new HashSet<>();
+import com.example.healthmanagementorganization.Model.DataBase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+public class Patient extends Person implements DataBase {
 
 
     public Patient() {
         super();
     }
 
-    /**
-     * add medicalIssue to the set
-     *
-     * @param medicalIssue the medicalIssue to be added
-     * @return true if the medicalIssue is added successfully
-     */
-    private boolean addMedicalIssue(MedicalIssue medicalIssue) {
-        return medicalIssues.add(medicalIssue);
-    }
 
-    /**
-     * remove medicalIssue from the set
-     *
-     * @param medicalIssue the medicalIssue to be removed
-     * @return true if the medicalIssue is removed successfully
-     */
-    private boolean removeMedicalIssue(MedicalIssue medicalIssue) {
-        return medicalIssues.remove(medicalIssue);
-    }
-
-    /**
-     * get medicalIssues
-     *
-     * @return the set of medicalIssues
-     */
-    public HashSet<MedicalIssue> getMedicalIssues() {
-        return medicalIssues;
+    @Override
+    public void loadToDataBase() {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference("Patients");
+        String id = this.getUid();
+        Log.d("DUFAM", "loadToDataBase: " + id);
+        ref.child(id).setValue(this).addOnFailureListener(e -> {
+            Log.d("DUFAM", "loadToDataBase: " + e.getMessage());
+        });
     }
 }

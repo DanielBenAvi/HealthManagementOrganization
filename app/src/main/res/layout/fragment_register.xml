@@ -30,6 +30,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:hint="Email" />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/register_ACET_phone"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Phone" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/register_ACET_password"

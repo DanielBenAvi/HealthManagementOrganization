@@ -13,42 +13,8 @@ public class Appointment {
 
     /**
      * constructor
-     *
-     * @param patientID the patient's ID
-     * @param doctorID  the doctor's ID
-     * @param startTime the start time of the appointment
-     * @param endTime   the end time of the appointment
      */
-    public Appointment(String patientID, String doctorID, Calendar startTime, Calendar endTime) {
-        // check if the patientID is valid
-        if (!setPatientID(patientID)) {
-            Log.d("Appointment", "Appointment: patientID is null");
-            return;
-        }
-        // check if the doctorID is valid
-        if (!setDoctorID(doctorID)) {
-            Log.d("Appointment", "Appointment: doctorID is null");
-            return;
-        }
-        // check if the start time is valid
-        if (!setStartTime(startTime)) {
-            Log.d("Appointment", "Appointment: startTime is null");
-            return;
-        }
-        // check if the end time is valid
-        if (!setEndTime(endTime)) {
-            Log.d("Appointment", "Appointment: endTime is null");
-            return;
-        }
-        // check if the start time is before the end time
-        if (startTime.compareTo(endTime) >= 0) {
-            Log.d("Appointment", "Appointment: startTime is after endTime");
-            return;
-        }
-
-        // set the appointmentID
-        setAppointmentID();
-
+    public Appointment() {
     }
 
 
@@ -97,14 +63,14 @@ public class Appointment {
      * @param doctorID the doctorID
      * @return true if the doctorID is valid
      */
-    public boolean setDoctorID(String doctorID) {
+    public Appointment setDoctorID(String doctorID) {
         // check if the doctorID is valid
         if (doctorID == null || doctorID.isEmpty()) {
-            return false;
+            return null;
         }
 
         this.doctorID = doctorID;
-        return true;
+        return this;
     }
 
     /**
@@ -113,17 +79,17 @@ public class Appointment {
      * @param startTime the start time
      * @return true if the start time is valid
      */
-    public boolean setStartTime(Calendar startTime) {
+    public Appointment setStartTime(Calendar startTime) {
         // check if the startTime is valid
         if (startTime == null) {
-            return false;
+            return null;
         }
         // check if the startTime is after the current time
         if (startTime.before(Calendar.getInstance())) {
-            return false;
+            return null;
         }
         this.startTime = startTime;
-        return true;
+        return this;
     }
 
     /**
@@ -132,17 +98,17 @@ public class Appointment {
      * @param endTime the end time
      * @return true if the end time is valid
      */
-    public boolean setEndTime(Calendar endTime) {
+    public Appointment setEndTime(Calendar endTime) {
         // check if the endTime is valid
         if (endTime == null) {
-            return false;
+            return null;
         }
         // check if the endTime is after the current time
         if (endTime.before(Calendar.getInstance())) {
-            return false;
+            return null;
         }
         this.endTime = endTime;
-        return true;
+        return this;
     }
 
 
@@ -153,5 +119,22 @@ public class Appointment {
      */
     public String getAppointmentID() {
         return appointmentID;
+    }
+
+
+    public String getPatientID() {
+        return patientID;
+    }
+
+    public String getDoctorID() {
+        return doctorID;
+    }
+
+    public Calendar getStartTime() {
+        return startTime;
+    }
+
+    public Calendar getEndTime() {
+        return endTime;
     }
 }
