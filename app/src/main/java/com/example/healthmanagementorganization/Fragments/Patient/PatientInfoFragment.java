@@ -10,7 +10,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
-import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PatientInfoFragment extends Fragment {
 
-    private AppCompatTextView info_ACTV_medical_issues, info_ACTV_phone, info_ACTV_mail, info_ACTV_name, info_ACTV_specialty;
+    private AppCompatTextView info_ACTV_medical_issues, info_ACTV_phone, info_ACTV_mail, info_ACTV_name;
     private AppCompatButton info_ACBTN_logout;
 
     private PatientInfoFragment_Callback patientInfoFragment_callback;
@@ -52,15 +51,10 @@ public class PatientInfoFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
-                    //do ur stuff
                     mDatabase.child("Patients").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                            } else {
-                                info_ACTV_medical_issues.setVisibility(View.VISIBLE);
-                                info_ACTV_specialty.setVisibility(View.GONE);
-
+                            if (task.isSuccessful()) {
                                 Patient p = task.getResult().getValue(Patient.class);
 
                                 info_ACTV_name.setText("Name: \n\t\t" + p.getFirstName() + " " + p.getLastName());
@@ -70,9 +64,6 @@ public class PatientInfoFragment extends Fragment {
                             }
                         }
                     });
-                } else {
-                    //do something if not exists
-
                 }
             }
 
@@ -83,39 +74,6 @@ public class PatientInfoFragment extends Fragment {
 
         });
 
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
-                    mDatabase.child("Doctors").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                            } else {
-                                info_ACTV_medical_issues.setVisibility(View.GONE);
-                                info_ACTV_specialty.setVisibility(View.VISIBLE);
-
-                                Doctor d = task.getResult().getValue(Doctor.class);
-
-                                info_ACTV_name.setText("Name: \n\t\t" + d.getFirstName() + " " + d.getLastName());
-                                info_ACTV_mail.setText("Email: \n\t\t" + d.getEmail());
-                                info_ACTV_phone.setText("Phone: \n\t\t" + d.getPhone());
-                                info_ACTV_specialty.setText("Specialty: \n\t\t" + d.getSpecialty());
-                            }
-                        }
-                    });
-                } else {
-                    //do something if not exists
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
 
     }
 
@@ -132,7 +90,6 @@ public class PatientInfoFragment extends Fragment {
         info_ACTV_mail = view.findViewById(R.id.info_ACTV_mail);
         info_ACTV_name = view.findViewById(R.id.info_ACTV_name);
         info_ACBTN_logout = view.findViewById(R.id.info_ACBTN_logout);
-        info_ACTV_specialty = view.findViewById(R.id.info_ACTV_specialty);
 
     }
 

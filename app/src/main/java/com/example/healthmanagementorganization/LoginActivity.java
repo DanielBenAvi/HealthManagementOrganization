@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment_Callback;
-import com.example.healthmanagementorganization.Fragments.Login.LoginFragment_Callback;
-import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment_Callback;
-import com.example.healthmanagementorganization.Fragments.Login.LoginFragment;
 import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment;
+import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment_Callback;
+import com.example.healthmanagementorganization.Fragments.Login.LoginFragment;
+import com.example.healthmanagementorganization.Fragments.Login.LoginFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment;
+import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment_Callback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
 
+
+    FirebaseAuth mAuth;
+    FirebaseDatabase db;
+    DatabaseReference mDatabase;
 
     LoginBaseFragment_Callback loginBaseFragment_Callback = new LoginBaseFragment_Callback() {
         @Override
@@ -52,7 +62,37 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onLoginSuccess() {
-            changeActivityToMainActivity();
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        changeActivityToPatientActivity();
+                        //do ur stuff
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+
+            });
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        changeActivityToDoctorActivity();
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
     };
 
@@ -62,7 +102,37 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            changeActivityToMainActivity();
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        changeActivityToPatientActivity();
+                        //do ur stuff
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+
+            });
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        changeActivityToDoctorActivity();
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
     }
 
@@ -71,7 +141,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
+        mDatabase = db.getReference();
         findViews();
         initViews();
 
@@ -95,8 +167,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void changeActivityToMainActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+    private void changeActivityToPatientActivity() {
+        Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void changeActivityToDoctorActivity() {
+        Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
         startActivity(intent);
         finish();
     }

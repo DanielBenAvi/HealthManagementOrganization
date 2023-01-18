@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".PatientActivity">
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -38,7 +38,7 @@
             android:orientation="horizontal">
 
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/main_ACBTN_info"
                 style="@style/BaseButton"
                 android:layout_width="0dp"
@@ -52,7 +52,7 @@
 
                 android:layout_weight="0.5" />
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/main_ACBTN_main"
                 style="@style/BaseButton"
                 android:layout_width="0dp"
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5" />
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/main_ACBTN_new"
                 style="@style/BaseButton"
                 android:layout_width="0dp"

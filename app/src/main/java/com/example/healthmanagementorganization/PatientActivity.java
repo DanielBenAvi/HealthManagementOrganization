@@ -6,6 +6,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentContainerView;
 
@@ -21,10 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class PatientActivity extends AppCompatActivity {
 
     // Design
-    private ImageButton main_ACBTN_main, main_ACBTN_info, main_ACBTN_new;
+    private AppCompatImageButton main_ACBTN_main, main_ACBTN_info, main_ACBTN_new;
     private AppCompatTextView main_ACTV_test;
 
     // FireBase
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_patient);
         mAuth = FirebaseAuth.getInstance();
 
         findViews();
@@ -68,10 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
                     //do ur stuff
                     main_ACTV_test.setText("Patients");
-                } else {
-                    //do something if not exists
-
-                }
+                }  //do something if not exists
             }
 
             @Override
@@ -80,43 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
-                    //do ur stuff
-                    main_ACTV_test.setText("Doctors");
-                } else {
-                    //do something if not exists
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
-//        mDatabase.child("Patients").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Toast.makeText(MainActivity.this, "Error getting data", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    main_ACTV_test.setText("Hello " + task.getResult().getValue(Patient.class).getFirstName());
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        });
-
-
     }
 
     private void initViews() {
