@@ -28,7 +28,6 @@ public class LogoActivity extends AppCompatActivity {
     private void startAnimation(View view) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
 
 
         view.setAlpha(0.0f); // Transparent
