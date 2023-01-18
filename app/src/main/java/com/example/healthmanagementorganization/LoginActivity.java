@@ -1,23 +1,17 @@
 package com.example.healthmanagementorganization;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.healthmanagementorganization.CallBacks.LoginBaseFragment_Callback;
-import com.example.healthmanagementorganization.CallBacks.LoginFragment_Callback;
-import com.example.healthmanagementorganization.CallBacks.RegisterFragment_Callback;
+import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment_Callback;
+import com.example.healthmanagementorganization.Fragments.Login.LoginFragment_Callback;
+import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Login.LoginFragment;
 import com.example.healthmanagementorganization.Fragments.Login.LoginBaseFragment;
 import com.example.healthmanagementorganization.Fragments.Login.RegisterFragment;
-import com.example.healthmanagementorganization.Model.Person.Person;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     LoginBaseFragment_Callback loginBaseFragment_Callback = new LoginBaseFragment_Callback() {
         @Override
         public void LoginFragment() {
-            changeTitle("Login");
             getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
 
 
@@ -39,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void RegisterFragment() {
-            changeTitle("Register");
             getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, registerFragment).commit();
         }
     };
@@ -78,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        changeTitle("Login");
+
 
         findViews();
         initViews();
@@ -102,9 +94,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void changeTitle(String t) {
-        this.setTitle("" + t);
-    }
 
     private void changeActivityToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

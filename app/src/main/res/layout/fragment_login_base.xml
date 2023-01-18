@@ -12,7 +12,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginF_ACB_login"
-            style="@style/EditText"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -20,7 +20,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginF_ACB_register"
-            style="@style/EditText"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

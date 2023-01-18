@@ -18,7 +18,6 @@ public class LogoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
-        this.setTitle(R.string.app_name_2);
 
 
         findViews();
@@ -31,13 +30,10 @@ public class LogoActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
 
-        //starting state:
-        view.setY(-height / 2f); // top-middle of the screen
-        view.setScaleX(0.0f); //no size X
-        view.setScaleY(0.0f); // no size Y
+
         view.setAlpha(0.0f); // Transparent
 
-        view.animate().alpha(1.0f).scaleX(1.0f).scaleY(1.0f).translationY(0).setDuration(4000) //in milliseconds
+        view.animate().alpha(1.0f).setDuration(2000) //in milliseconds
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {

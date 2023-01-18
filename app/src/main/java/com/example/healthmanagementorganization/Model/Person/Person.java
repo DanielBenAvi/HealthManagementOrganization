@@ -76,5 +76,8 @@ public class Person {
         return this;
     }
 
-
+    @Override
+    public String toString() {
+        return "Person{" + "uid='" + uid + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + ", appointmentsIDs=" + appointmentsIDs + '}';
+    }
 }

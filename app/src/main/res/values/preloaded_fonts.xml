@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/dm_sans</item>
+        <item>@font/lora</item>
         <item>@font/rubik_light</item>
         <item>@font/secular_one</item>
     </array>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.Patient.PatientInfoFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_ACTV_name"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_ACTV_mail"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/info_ACTV_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_ACTV_phone"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/info_ACTV_mail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_ACTV_medical_issues"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/info_ACTV_phone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_ACTV_specialty"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/info_ACTV_medical_issues" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/info_ACBTN_logout"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/info_ACTV_specialty"
+        android:layout_centerHorizontal="true"
+        android:text="@string/log_out" />
+
+
+</RelativeLayout>

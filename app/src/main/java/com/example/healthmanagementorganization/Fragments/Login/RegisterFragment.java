@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.healthmanagementorganization.CallBacks.RegisterFragment_Callback;
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
@@ -66,6 +65,7 @@ public class RegisterFragment extends Fragment {
         register_ACET_specialization = view.findViewById(R.id.register_ACET_specialization);
         register_ACBTN_register = view.findViewById(R.id.register_ACBTN_register);
         register_CLPB_progress = view.findViewById(R.id.register_CLPB_progress);
+        register_ACET_phone = view.findViewById(R.id.register_ACET_phone);
         register_RG_type = view.findViewById(R.id.register_RG_type);
     }
 
@@ -143,6 +143,7 @@ public class RegisterFragment extends Fragment {
                             Log.d("TAG", "onComplete: " + task.getException());
                             Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
 
