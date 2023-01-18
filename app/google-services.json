@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "319471278628",
+    "firebase_url": "https://healthmanagementorganization-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "healthmanagementorganization",
+    "storage_bucket": "healthmanagementorganization.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319471278628:android:ef049e6c79df103a9fd6b1",
+        "android_client_info": {
+          "package_name": "com.example.healthmanagementorganization"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319471278628-np912tt6kthtodntng1asuj2cgrjar2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADN3367wxmoS49wLJHubYvNP36ZITXKow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319471278628-np912tt6kthtodntng1asuj2cgrjar2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
