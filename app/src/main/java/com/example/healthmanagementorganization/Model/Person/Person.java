@@ -1,13 +1,8 @@
 package com.example.healthmanagementorganization.Model.Person;
 
-import android.util.Log;
-
-import com.example.healthmanagementorganization.Model.DataBase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.healthmanagementorganization.Model.Appointment;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Person {
@@ -16,7 +11,7 @@ public class Person {
     private String lastName = "";
     private String email = "";
     private String phone = "";
-    private List<String> appointmentsIDs = new ArrayList<>();
+    private List<Appointment> appointments = new ArrayList<>();
 
 
     public Person() {
@@ -67,17 +62,17 @@ public class Person {
         return this;
     }
 
-    public List<String> getAppointmentsIDs() {
-        return appointmentsIDs;
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public Person setAppointmentsIDs(List<String> appointmentsIDs) {
-        this.appointmentsIDs = appointmentsIDs;
+    public Person setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
         return this;
     }
 
     @Override
     public String toString() {
-        return "Person{" + "uid='" + uid + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + ", appointmentsIDs=" + appointmentsIDs + '}';
+        return "Person{" + "uid='" + uid + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + '}';
     }
 }

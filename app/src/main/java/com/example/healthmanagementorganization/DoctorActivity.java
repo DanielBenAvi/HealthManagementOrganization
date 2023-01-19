@@ -73,7 +73,7 @@ public class DoctorActivity extends AppCompatActivity {
         doc_ACTV_title = findViewById(R.id.doc_ACTV_title);
 
         doctorInfoFragment = new DoctorInfoFragment();
-        doctorInfoFragment.setFragmentCallback(doctorInfoFragment_Callback);
+        doctorInfoFragment.setCallback(doctorInfoFragment_Callback);
         doctorMainFragment = new DoctorMainFragment();
     }
 

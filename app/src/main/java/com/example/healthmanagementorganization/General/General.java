@@ -1,4 +1,4 @@
-package com.example.healthmanagementorganization.Model;
+package com.example.healthmanagementorganization.General;
 
 import androidx.fragment.app.Fragment;
 

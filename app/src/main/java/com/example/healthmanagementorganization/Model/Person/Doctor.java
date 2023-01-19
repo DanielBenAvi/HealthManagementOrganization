@@ -1,7 +1,5 @@
 package com.example.healthmanagementorganization.Model.Person;
 
-import android.util.Log;
-
 import com.example.healthmanagementorganization.Model.DataBase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

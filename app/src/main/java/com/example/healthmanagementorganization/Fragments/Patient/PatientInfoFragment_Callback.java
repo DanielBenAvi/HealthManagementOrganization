@@ -1,5 +1,7 @@
 package com.example.healthmanagementorganization.Fragments.Patient;
 
-public interface PatientInfoFragment_Callback {
+import com.example.healthmanagementorganization.General.Callback_interface;
+
+public interface PatientInfoFragment_Callback extends Callback_interface {
     void logout();
 }

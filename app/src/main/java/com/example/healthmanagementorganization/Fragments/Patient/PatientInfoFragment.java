@@ -10,6 +10,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
+import com.example.healthmanagementorganization.General.Callback_interface;
+import com.example.healthmanagementorganization.General.Fragment_interface;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class PatientInfoFragment extends Fragment {
+public class PatientInfoFragment extends Fragment implements Fragment_interface {
 
     private AppCompatTextView info_ACTV_medical_issues, info_ACTV_phone, info_ACTV_mail, info_ACTV_name;
     private AppCompatButton info_ACBTN_logout;
@@ -93,7 +95,9 @@ public class PatientInfoFragment extends Fragment {
 
     }
 
-    public void setFragmentCallback(PatientInfoFragment_Callback patientInfoFragment_callback) {
-        this.patientInfoFragment_callback = patientInfoFragment_callback;
+
+    @Override
+    public void setCallback(Callback_interface callback) {
+        this.patientInfoFragment_callback = (PatientInfoFragment_Callback) callback;
     }
 }

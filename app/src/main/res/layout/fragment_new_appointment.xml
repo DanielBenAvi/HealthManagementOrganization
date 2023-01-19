@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".Fragments.Patient.NewAppointmentFragment">
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/newapp_ACBTN_date"
-        style="@style/Button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="@string/pick_date" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/newapp_ACTV_date"
-        style="@style/Headline"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newapp_RV_doctors"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/newapp_ACBTN_date"
-        android:text="@string/dd_mm_yyyy" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/doctor_item" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/newapp_ACBTN_time"
-        style="@style/Button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/newapp_ACTV_date"
-        android:text="@string/pick_time" />
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/newapp_ACBTN_date"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/pick_date" />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/newapp_ACTV_time"
-        style="@style/Headline"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/newapp_ACBTN_time"
-        android:text="@string/_12_34" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/newapp_ACTV_date"
+            style="@style/Headline"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="@string/dd_mm_yyyy" />
 
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -105,7 +105,7 @@ public class PatientActivity extends AppCompatActivity {
 
         newAppointmentFragment = new NewAppointmentFragment();
         patientInfoFragment = new PatientInfoFragment();
-        patientInfoFragment.setFragmentCallback(patientInfoFragment_callback);
+        patientInfoFragment.setCallback(patientInfoFragment_callback);
         patientMainFragment = new PatientMainFragment();
     }
 }

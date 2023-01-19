@@ -10,6 +10,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
+import com.example.healthmanagementorganization.General.Callback_interface;
+import com.example.healthmanagementorganization.General.Fragment_interface;
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class DoctorInfoFragment extends Fragment {
+public class DoctorInfoFragment extends Fragment implements Fragment_interface {
 
 
     private DoctorInfoFragment_Callback doctorInfoFragment_Callback;
@@ -57,9 +59,6 @@ public class DoctorInfoFragment extends Fragment {
 
     }
 
-    public void setFragmentCallback(DoctorInfoFragment_Callback doctorInfoFragment_Callback) {
-        this.doctorInfoFragment_Callback = doctorInfoFragment_Callback;
-    }
 
     private void getUserData() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -94,5 +93,11 @@ public class DoctorInfoFragment extends Fragment {
         });
 
 
+    }
+
+
+    @Override
+    public void setCallback(Callback_interface callback) {
+        this.doctorInfoFragment_Callback = (DoctorInfoFragment_Callback) callback;
     }
 }

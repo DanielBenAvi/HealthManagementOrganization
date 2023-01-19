@@ -27,5 +27,4 @@ public class Patient extends Person implements DataBase {
     }
 
 
-
 }
