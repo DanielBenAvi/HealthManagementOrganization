@@ -1,19 +1,18 @@
 package com.example.healthmanagementorganization;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.FragmentContainerView;
 
 import com.example.healthmanagementorganization.Fragments.Patient.NewAppointmentFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientMainFragment;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 public class PatientActivity extends AppCompatActivity {
 
     // Design
-    private AppCompatImageButton main_ACBTN_main, main_ACBTN_info, main_ACBTN_new;
     private AppCompatTextView main_ACTV_test;
+
+    private NavigationBarView patient_bottom_navigation;
 
     // FireBase
     private FirebaseAuth mAuth;
@@ -37,12 +37,7 @@ public class PatientActivity extends AppCompatActivity {
     private PatientInfoFragment patientInfoFragment;
 
 
-    PatientInfoFragment_Callback patientInfoFragment_callback = new PatientInfoFragment_Callback() {
-        @Override
-        public void logout() {
-            signOut();
-        }
-    };
+    PatientInfoFragment_Callback patientInfoFragment_callback = this::signOut;
 
     public void signOut() {
         mAuth.signOut();
@@ -64,8 +59,9 @@ public class PatientActivity extends AppCompatActivity {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = db.getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
                     //do ur stuff
                     main_ACTV_test.setText("Patients");
@@ -80,45 +76,31 @@ public class PatientActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void initViews() {
+        getSupportFragmentManager().beginTransaction().add(R.id.main_FCV_main, patientInfoFragment).commit();
 
-
-        getSupportFragmentManager().beginTransaction().add(R.id.main_FCV_main, patientMainFragment).commit();
-
-        main_ACBTN_new.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, newAppointmentFragment).commit();
-            main_ACTV_test.setText("Add Appointment");
-            main_ACBTN_new.setBackgroundResource(R.drawable.base_button_design_selected);
-            main_ACBTN_info.setBackgroundResource(R.drawable.base_button_design);
-            main_ACBTN_main.setBackgroundResource(R.drawable.base_button_design);
-        });
-
-        main_ACBTN_info.setOnClickListener(v -> {
-            main_ACTV_test.setText("Home");
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientInfoFragment).commit();
-            main_ACBTN_new.setBackgroundResource(R.drawable.base_button_design);
-            main_ACBTN_info.setBackgroundResource(R.drawable.base_button_design_selected);
-            main_ACBTN_main.setBackgroundResource(R.drawable.base_button_design);
-        });
-
-        main_ACBTN_main.setOnClickListener(v -> {
-            main_ACTV_test.setText("My Profile");
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientMainFragment).commit();
-            main_ACBTN_new.setBackgroundResource(R.drawable.base_button_design);
-            main_ACBTN_info.setBackgroundResource(R.drawable.base_button_design);
-            main_ACBTN_main.setBackgroundResource(R.drawable.base_button_design_selected);
+        patient_bottom_navigation.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.pat_home:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientMainFragment).commit();
+                    break;
+                case R.id.pat_info:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientInfoFragment).commit();
+                    break;
+                case R.id.pat_add:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, newAppointmentFragment).commit();
+                    break;
+            }
+            return true;
         });
 
     }
 
     private void findViews() {
         // design
-        main_ACBTN_main = findViewById(R.id.main_ACBTN_main);
-        main_ACBTN_new = findViewById(R.id.main_ACBTN_new);
-        main_ACBTN_info = findViewById(R.id.main_ACBTN_info);
+        patient_bottom_navigation = findViewById(R.id.patient_bottom_navigation);
         main_ACTV_test = findViewById(R.id.main_ACTV_test);
-
-        FragmentContainerView main_FCV_main = findViewById(R.id.main_FCV_main);
 
 
         newAppointmentFragment = new NewAppointmentFragment();

@@ -12,7 +12,7 @@
         style="@style/Headline"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="Title" />
+        android:text="@string/title" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/doc_FRCV_fragment"
@@ -22,56 +22,11 @@
         tools:layout="@layout/fragment_doctor_main" />
 
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/doctor_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:elevation="10dp"
-        app:cardElevation="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/doc_ACBTN_info"
-                style="@style/BaseButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/medical_information_48px" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-
-                android:layout_weight="0.5" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/doc_ACBTN_main"
-                style="@style/BaseButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/home_48px" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/doc_ACBTN_work_hours"
-                style="@style/BaseButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-
-                android:src="@drawable/date_range_48px" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_navigation_menu_doctor" />
 
 
 </LinearLayout>

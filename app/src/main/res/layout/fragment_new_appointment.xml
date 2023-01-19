@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
     tools:context=".Fragments.Patient.NewAppointmentFragment">
 
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/newapp_ACBTN_date"
+        style="@style/Button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/pick_date" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/newapp_ACTV_date"
+        style="@style/Headline"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/newapp_ACBTN_date"
+        android:text="@string/dd_mm_yyyy" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/newapp_ACBTN_time"
+        style="@style/Button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/newapp_ACTV_date"
+        android:text="@string/pick_time" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/newapp_ACTV_time"
+        style="@style/Headline"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/newapp_ACBTN_time"
+        android:text="@string/_12_34" />
+
+
+</RelativeLayout>

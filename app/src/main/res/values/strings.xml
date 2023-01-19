@@ -17,4 +17,18 @@
     <string name="main">Main</string>
     <string name="out">out</string>
     <string name="New">New</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="info">Info</string>
+    <string name="home">Home</string>
+    <string name="title">Title</string>
+    <string name="pick_date">Pick date</string>
+    <string name="dd_mm_yyyy">dd/mm/yyyy</string>
+    <string name="pick_time">Pick time</string>
+    <string name="_12_34">12:34</string>
 </resources>

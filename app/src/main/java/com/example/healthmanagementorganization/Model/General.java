@@ -6,5 +6,4 @@ import com.example.healthmanagementorganization.R;
 
 public class General {
 
-
 }
