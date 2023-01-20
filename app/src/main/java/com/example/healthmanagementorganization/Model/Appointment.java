@@ -1,11 +1,11 @@
 package com.example.healthmanagementorganization.Model;
 
-import java.util.Calendar;
-
 public class Appointment {
     private String patientID;
     private String doctorID;
-    private Calendar calendar;
+    private Long date;
+    private int hour;
+
 
     /**
      * constructor
@@ -32,14 +32,21 @@ public class Appointment {
         return this;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
+    public Long getDate() {
+        return date;
     }
 
-    public Appointment setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public Appointment setDate(Long date) {
+        this.date = date;
         return this;
     }
 
+    public int getHour() {
+        return hour;
+    }
 
+    public Appointment setHour(int hour) {
+        this.hour = hour;
+        return this;
+    }
 }

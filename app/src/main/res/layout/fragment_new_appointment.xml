@@ -9,8 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newapp_RV_doctors"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         tools:listitem="@layout/doctor_item" />
 
 
@@ -31,9 +30,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/newapp_ACTV_date"
-            style="@style/Headline"
+            style="@style/Text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:gravity="center"
             android:text="@string/dd_mm_yyyy" />
 
 
@@ -44,7 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:listitem="@layout/hour_item"
-        />
+        tools:listitem="@layout/hour_item" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/newapp_ACBTN_saveData"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/load_data"
+        android:visibility="gone" />
 
 </LinearLayout>

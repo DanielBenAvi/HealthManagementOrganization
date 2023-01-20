@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.healthmanagementorganization.Fragments.Patient.NewAppointmentFragment;
+import com.example.healthmanagementorganization.Fragments.Patient.NewAppointmentFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientMainFragment;
@@ -35,6 +36,13 @@ public class PatientActivity extends AppCompatActivity {
     private NewAppointmentFragment newAppointmentFragment;
     private PatientMainFragment patientMainFragment;
     private PatientInfoFragment patientInfoFragment;
+
+    NewAppointmentFragment_Callback newAppointmentFragment_callback = new NewAppointmentFragment_Callback() {
+        @Override
+        public void changeFragment() {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientMainFragment).commit();
+        }
+    };
 
 
     PatientInfoFragment_Callback patientInfoFragment_callback = this::signOut;
@@ -104,6 +112,7 @@ public class PatientActivity extends AppCompatActivity {
 
 
         newAppointmentFragment = new NewAppointmentFragment();
+        newAppointmentFragment.setCallback(newAppointmentFragment_callback);
         patientInfoFragment = new PatientInfoFragment();
         patientInfoFragment.setCallback(patientInfoFragment_callback);
         patientMainFragment = new PatientMainFragment();
