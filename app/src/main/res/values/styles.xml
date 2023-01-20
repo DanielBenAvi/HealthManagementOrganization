@@ -3,8 +3,8 @@
 
     <style name="Headline">
         <item name="android:textColor">@color/black</item>
-        <item name="autoSizeTextType">uniform</item>
-        <item name="autoSizeMaxTextSize">40sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:autoSizeMaxTextSize">40sp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
 
@@ -14,25 +14,25 @@
 
     <style name="Text">
         <item name="android:textColor">@color/black</item>
-        <item name="autoSizeTextType">uniform</item>
-        <item name="autoSizeMaxTextSize">20sp</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:autoSizeMaxTextSize">20sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="android:paddingHorizontal">10dp</item>
     </style>
 
     <style name="Button">
         <item name="android:textColor">@color/black</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_margin">10dp</item>
-        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="android:background">@drawable/button_design</item>
     </style>
 
     <style name="BaseButton">
         <item name="android:textColor">@color/black</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_margin">10dp</item>
 
         <item name="android:fontFamily">@font/rubik_light</item>
@@ -46,10 +46,10 @@
         <item name="android:background">@drawable/edit_text_design</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="autoSizeTextType">uniform</item>
+        <item name="android:autoSizeTextType">uniform</item>
         <item name="android:layout_marginVertical">20dp</item>
         <item name="android:autoSizeMaxTextSize">20sp</item>
-        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="android:gravity">center</item>
     </style>
 

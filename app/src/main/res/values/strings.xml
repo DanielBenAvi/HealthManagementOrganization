@@ -31,4 +31,6 @@
     <string name="dd_mm_yyyy">dd/mm/yyyy</string>
     <string name="pick_time">Pick time</string>
     <string name="_12_34">12:34</string>
+    <string name="doctor_doctor">doctor doctor</string>
+    <string name="specialty">specialty</string>
 </resources>

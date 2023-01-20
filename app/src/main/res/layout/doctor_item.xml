@@ -17,7 +17,7 @@
             style="@style/Text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="doctor doctor" />
+            android:text="@string/doctor_doctor" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_doctor_ACTV_specialty"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@id/item_doctor_ACTV_name"
-            android:text="specialty" />
+            android:text="@string/specialty" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
