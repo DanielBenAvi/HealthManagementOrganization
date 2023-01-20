@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthmanagementorganization.Database.Database;
+import com.example.healthmanagementorganization.General.General;
 import com.example.healthmanagementorganization.Model.Appointment;
 import com.example.healthmanagementorganization.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,11 +58,22 @@ public class RV_appointment_adapter extends RecyclerView.Adapter<RV_appointment_
         // change View
         holder.appItem_date.setText("" + date);
         holder.appItem_time.setText("" + appointment.getHour() + ":00");
-        holder.appItem_pat.setText("" + Database.getInstance().getPatNameFormFB(appointment.getPatientID()));
-        holder.appItem_doc.setText("" + Database.getInstance().getDocNameFormFB(appointment.getDoctorID()));
+        db.getReference().child(General.FB_Doctors).child(appointment.getDoctorID()).child(General.FB_firstName).get().addOnCompleteListener(task -> {
+            holder.appItem_doc.setText("" + task.getResult().getValue(String.class));
+        });
+        db.getReference().child(General.FB_Doctors).child(appointment.getDoctorID()).child(General.FB_LastName).get().addOnCompleteListener(task -> {
+            holder.appItem_doc.setText("Doctor: " + holder.appItem_doc.getText() + " " + task.getResult().getValue(String.class));
+        });
+
+        db.getReference().child(General.FB_Patients).child(appointment.getPatientID()).child(General.FB_firstName).get().addOnCompleteListener(task -> {
+            holder.appItem_pat.setText("" + task.getResult().getValue(String.class));
+        });
+        db.getReference().child(General.FB_Patients).child(appointment.getPatientID()).child(General.FB_LastName).get().addOnCompleteListener(task -> {
+            holder.appItem_pat.setText("Patient: " + holder.appItem_pat.getText() + " " + task.getResult().getValue(String.class));
+        });
     }
 
-    
+
     @Override
     public int getItemCount() {
         return appointments == null ? 0 : appointments.size();

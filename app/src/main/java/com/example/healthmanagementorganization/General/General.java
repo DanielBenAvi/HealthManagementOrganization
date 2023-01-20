@@ -8,5 +8,5 @@ public class General {
     public static final String FB_Patients = "Patients";
     public static final String FB_firstName = "firstName";
 
-
+    public static String FB_LastName ="lastName";
 }
