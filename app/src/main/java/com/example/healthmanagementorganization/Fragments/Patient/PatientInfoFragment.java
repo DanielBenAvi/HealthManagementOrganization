@@ -14,8 +14,6 @@ import com.example.healthmanagementorganization.General.Callback_interface;
 import com.example.healthmanagementorganization.General.Fragment_interface;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,17 +51,14 @@ public class PatientInfoFragment extends Fragment implements Fragment_interface 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
-                    mDatabase.child("Patients").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Patient p = task.getResult().getValue(Patient.class);
+                    mDatabase.child("Patients").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Patient p = task.getResult().getValue(Patient.class);
 
-                                info_ACTV_name.setText("Name: \n\t\t" + p.getFirstName() + " " + p.getLastName());
-                                info_ACTV_mail.setText("Email: \n\t\t" + p.getEmail());
-                                info_ACTV_phone.setText("Phone: \n\t\t" + p.getPhone());
-                                info_ACTV_medical_issues.setText("Medical Issues: \n\t\t");
-                            }
+                            info_ACTV_name.setText("Name: \n\t\t" + p.getFirstName() + " " + p.getLastName());
+                            info_ACTV_mail.setText("Email: \n\t\t" + p.getEmail());
+                            info_ACTV_phone.setText("Phone: \n\t\t" + p.getPhone());
+                            info_ACTV_medical_issues.setText("Medical Issues: \n\t\t");
                         }
                     });
                 }
@@ -79,7 +74,7 @@ public class PatientInfoFragment extends Fragment implements Fragment_interface 
 
     }
 
-    private void initViews() {
+    public void initViews() {
         info_ACBTN_logout.setOnClickListener(v -> {
             patientInfoFragment_callback.logout();
         });

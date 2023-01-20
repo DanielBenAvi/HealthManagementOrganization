@@ -46,11 +46,11 @@ public class DoctorInfoFragment extends Fragment implements Fragment_interface {
         return view;
     }
 
-    private void initViews() {
+    public void initViews() {
         doctor_ACBTN_logout.setOnClickListener(v -> doctorInfoFragment_Callback.logOut());
     }
 
-    private void findViews(View view) {
+    public void findViews(View view) {
         doctor_ACBTN_logout = view.findViewById(R.id.doctor_ACBTN_logout);
         doc_info_ACTV_mail = view.findViewById(R.id.doc_info_ACTV_mail);
         doc_info_ACTV_name = view.findViewById(R.id.doc_info_ACTV_name);

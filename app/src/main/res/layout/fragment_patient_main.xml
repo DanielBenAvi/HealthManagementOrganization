@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Patient.PatientMainFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/Headline"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patientMain_RV_appointments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Patient Main" />
-
+        tools:listitem="@layout/appointment_item" />
 </FrameLayout>

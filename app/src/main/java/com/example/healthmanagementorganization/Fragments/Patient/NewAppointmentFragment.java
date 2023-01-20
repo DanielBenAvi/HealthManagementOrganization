@@ -74,7 +74,7 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
     }
 
     @SuppressLint("SetTextI18n")
-    private void initViews() {
+    public void initViews() {
         newapp_ACBTN_date.setOnClickListener(v -> {
             MaterialDatePicker<Long> builder = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").build();
             builder.show(getParentFragmentManager(), "TAG");
@@ -203,7 +203,8 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
 
     }
 
-    private void findViews(View view) {
+    @Override
+    public void findViews(View view) {
         newapp_RV_doctors = view.findViewById(R.id.newapp_RV_doctors);
         newapp_ACBTN_date = view.findViewById(R.id.newapp_ACBTN_date);
         newapp_ACTV_date = view.findViewById(R.id.newapp_ACTV_date);

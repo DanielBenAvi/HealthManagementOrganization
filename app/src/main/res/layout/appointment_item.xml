@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/LL_time_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appItem_date"
+            style="@style/Text"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:text="Date" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appItem_time"
+            style="@style/Text"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_toEndOf="@id/appItem_date"
+            android:layout_weight="1"
+            android:text="Time" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appItem_doc"
+        style="@style/TextSmall"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/LL_time_date"
+        android:text="Doctor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appItem_pat"
+        style="@style/TextSmall"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/appItem_doc"
+        android:text="Patient" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appItem_pat"
+        android:layout_marginHorizontal="20dp" />
+
+
+</RelativeLayout>
