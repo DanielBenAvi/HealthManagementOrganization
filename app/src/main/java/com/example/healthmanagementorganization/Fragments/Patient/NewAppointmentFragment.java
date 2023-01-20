@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthmanagementorganization.General.General;
+import com.example.healthmanagementorganization.Model.Appointment;
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.R;
 import com.example.healthmanagementorganization.Recyclerviews.RV_doctor_adapter;
 import com.example.healthmanagementorganization.Recyclerviews.RV_doctor_callback;
+import com.example.healthmanagementorganization.Recyclerviews.RV_hours_adapter;
+import com.example.healthmanagementorganization.Recyclerviews.RV_hours_callback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -28,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class NewAppointmentFragment extends Fragment {
@@ -35,8 +41,10 @@ public class NewAppointmentFragment extends Fragment {
 
     private AppCompatTextView newapp_ACTV_date;
 
+    private RecyclerView newapp_RV_doctors, newapp_RV_hours;
+    private LinearLayout newapp_LL_date_picker;
 
-    private RecyclerView newapp_RV_doctors;
+    private ArrayList<Integer> hours;
 
 
     @Override
@@ -46,6 +54,7 @@ public class NewAppointmentFragment extends Fragment {
 
         findViews(view);
         initViews();
+        getAllDoctors();
 
         return view;
     }
@@ -57,16 +66,27 @@ public class NewAppointmentFragment extends Fragment {
             builder.show(getParentFragmentManager(), "TAG");
 
             builder.addOnPositiveButtonClickListener(selection -> newapp_ACTV_date.setText("" + builder.getHeaderText()));
-
+            setHoursRecycleView(hours);
+            newapp_RV_hours.setVisibility(View.VISIBLE);
 
         });
+    }
 
-        //TODO add doctors from db
+    private void setHoursRecycleView(ArrayList<Integer> hours) {
+        RV_hours_adapter rv_hours_adapter = new RV_hours_adapter(getContext(), hours);
+        newapp_RV_hours.setLayoutManager(new LinearLayoutManager(getContext()));
+        newapp_RV_hours.setAdapter(rv_hours_adapter);
 
 
-        getAllDoctors();
+        rv_hours_adapter.setAdapter(new RV_hours_callback() {
+            @Override
+            public void itemClicked(Integer hour, int position) {
+                Log.d("Dufam", "" + hour);
+            }
+        });
 
     }
+
 
     private void setDoctorRecycleView(ArrayList<Doctor> allDoctors) {
 
@@ -78,6 +98,19 @@ public class NewAppointmentFragment extends Fragment {
             @Override
             public void itemClicked(Doctor doctor, int position) {
                 Toast.makeText(getContext(), doctor.getFirstName(), Toast.LENGTH_SHORT).show();
+                // make date picker visible
+                newapp_LL_date_picker.setVisibility(View.VISIBLE);
+                // TODO add new recycleView with hours each day
+                // todo: make doc gone
+                hours = new ArrayList<>();
+                // add general hours
+                for (int i = General.DAY_START; i < General.DAY_END; i++) {
+                    hours.add(i);
+                }
+
+                for (Appointment app : doctor.getAppointments()) {
+                    hours.remove((Integer) app.getCalendar().get(Calendar.HOUR));
+                }
             }
         });
     }
@@ -112,6 +145,8 @@ public class NewAppointmentFragment extends Fragment {
         newapp_RV_doctors = view.findViewById(R.id.newapp_RV_doctors);
         newapp_ACBTN_date = view.findViewById(R.id.newapp_ACBTN_date);
         newapp_ACTV_date = view.findViewById(R.id.newapp_ACTV_date);
+        newapp_LL_date_picker = view.findViewById(R.id.newapp_LL_date_picker);
+        newapp_RV_hours = view.findViewById(R.id.newapp_RV_hours);
     }
 
 }

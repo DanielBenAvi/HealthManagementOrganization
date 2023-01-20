@@ -1,9 +1,6 @@
 package com.example.healthmanagementorganization.General;
 
-import androidx.fragment.app.Fragment;
-
-import com.example.healthmanagementorganization.R;
-
 public class General {
-
+    public static final int DAY_START = 9;
+    public static final int DAY_END = 17;
 }
