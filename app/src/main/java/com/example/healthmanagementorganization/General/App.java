@@ -1,4 +1,4 @@
-package com.example.healthmanagementorganization;
+package com.example.healthmanagementorganization.General;
 
 import android.app.Application;
 import android.util.Log;

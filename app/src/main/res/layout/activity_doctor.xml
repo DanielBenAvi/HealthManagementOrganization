@@ -25,7 +25,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/doctor_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:menu="@menu/bottom_navigation_menu_doctor" />
 
 

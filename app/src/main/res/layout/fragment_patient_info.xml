@@ -27,19 +27,13 @@
         android:layout_height="100dp"
         android:layout_below="@id/info_ACTV_mail" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/info_ACTV_medical_issues"
-        style="@style/Text"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/info_ACTV_phone" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/info_ACBTN_logout"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/info_ACTV_medical_issues"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/log_out" />
 

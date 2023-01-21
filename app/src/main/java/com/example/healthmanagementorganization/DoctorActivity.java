@@ -1,5 +1,6 @@
 package com.example.healthmanagementorganization;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,8 +12,14 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorMainFragment;
+import com.example.healthmanagementorganization.General.General;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DoctorActivity extends AppCompatActivity {
     //Firebase
@@ -40,6 +47,25 @@ public class DoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor);
         mAuth = FirebaseAuth.getInstance();
         findViews();
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = db.getReference();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(General.FB_Doctors).child(mAuth.getCurrentUser().getUid()).exists()) {
+                    //do ur stuff
+                    doc_ACTV_title.setText("Hello " + dataSnapshot.child(General.FB_Doctors).child(mAuth.getCurrentUser().getUid()).child(General.FB_firstName).getValue(String.class));
+                }  //do something if not exists
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
         doc_ACTV_title.setText("Info");
         getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorInfoFragment).commit();
 
@@ -53,11 +79,11 @@ public class DoctorActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.doc_info:
-                        doc_ACTV_title.setText("Info");
+                        doc_ACTV_title.setText(General.Info);
                         getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorInfoFragment).commit();
                         break;
                     case R.id.doc_home:
-                        doc_ACTV_title.setText("Home");
+                        doc_ACTV_title.setText(General.Main);
                         getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorMainFragment).commit();
                         break;
                 }

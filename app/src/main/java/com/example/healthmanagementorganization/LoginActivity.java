@@ -26,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private LoginBaseFragment loginBaseFragment;
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
-
-
     FirebaseAuth mAuth;
     FirebaseDatabase db;
     DatabaseReference mDatabase;
@@ -36,8 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void LoginFragment() {
             getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
-
-
         }
 
         @Override
@@ -47,19 +43,14 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     RegisterFragment_Callback registerFragment_Callback = new RegisterFragment_Callback() {
-
-
         @Override
         public void onRegisterSuccess() {
-
-
             Toast.makeText(LoginActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginFragment).commit();
         }
     };
 
     LoginFragment_Callback loginFragment_Callback = new LoginFragment_Callback() {
-
         @Override
         public void onLoginSuccess() {
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -72,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                         //do something if not exists
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }

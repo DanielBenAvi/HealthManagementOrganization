@@ -13,6 +13,7 @@ import com.example.healthmanagementorganization.Fragments.Patient.NewAppointment
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientMainFragment;
+import com.example.healthmanagementorganization.General.General;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -70,9 +71,9 @@ public class PatientActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
+                if (dataSnapshot.child(General.FB_Patients).child(mAuth.getCurrentUser().getUid()).exists()) {
                     //do ur stuff
-                    main_ACTV_test.setText("Patients");
+                    main_ACTV_test.setText("Hello " + dataSnapshot.child(General.FB_Patients).child(mAuth.getCurrentUser().getUid()).child(General.FB_firstName).getValue(String.class));
                 }  //do something if not exists
             }
 
@@ -84,7 +85,7 @@ public class PatientActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     private void initViews() {
         getSupportFragmentManager().beginTransaction().add(R.id.main_FCV_main, patientInfoFragment).commit();
 
@@ -92,12 +93,15 @@ public class PatientActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.pat_home:
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientMainFragment).commit();
+                    main_ACTV_test.setText("" + General.Main);
                     break;
                 case R.id.pat_info:
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientInfoFragment).commit();
+                    main_ACTV_test.setText("" + General.Info);
                     break;
                 case R.id.pat_add:
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, newAppointmentFragment).commit();
+                    main_ACTV_test.setText("" + General.NewAPP);
                     break;
             }
             return true;

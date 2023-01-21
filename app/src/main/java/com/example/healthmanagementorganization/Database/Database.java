@@ -1,7 +1,7 @@
 package com.example.healthmanagementorganization.Database;
 
 
-import com.example.healthmanagementorganization.App;
+import com.example.healthmanagementorganization.General.App;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
