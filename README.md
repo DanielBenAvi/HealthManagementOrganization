@@ -4,15 +4,15 @@ An health Management Organization App Built uisng Android
 
 ## How to use
 ### Doctor 
-Sign up using mail and password
-look at your data
-look at your appointments
+* Sign up using mail and password
+* look at your data
+* look at your appointments
 
 ### Patient 
-Sign up using mail and password
-look at your data
-look at your appointments
-create a new appointment with your chosen doctor
+* Sign up using mail and password
+* look at your data
+* look at your appointments
+* create a new appointment with your chosen doctor
 
 
 ## Features
