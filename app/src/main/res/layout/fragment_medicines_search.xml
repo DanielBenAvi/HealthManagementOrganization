@@ -6,18 +6,20 @@
     android:orientation="vertical"
     tools:context=".Fragments.Patient.MedicinesSearchFragment">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_med_SV_search_bar"
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/search_med_ACACTV_search_bar"
         style="@style/EditText"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="70dp"
+        android:hint="@string/search_medicines" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_med_RV_med_list"
         style="@style/TextSmall"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/medicine_item" />
 
 
 </LinearLayout>

@@ -5,6 +5,7 @@ public class General {
     public static final int DAY_END = 17;
     public static final String FB_appointmets = "appointments";
     public static final String FB_Doctors = "Doctors";
+    public static final String FB_Medicine = "Drugs";
     public static final String FB_Patients = "Patients";
     public static final String FB_firstName = "firstName";
     public static String FB_LastName = "lastName";
