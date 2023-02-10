@@ -17,9 +17,8 @@ public class RV_medicines_viewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         med_item_ACTV_name = itemView.findViewById(R.id.med_item_ACTV_name);
 
-
         itemView.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), med_item_ACTV_name.getText(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(v.getContext(), med_item_ACTV_name.getText(), Toast.LENGTH_SHORT).show();
         });
     }
 }

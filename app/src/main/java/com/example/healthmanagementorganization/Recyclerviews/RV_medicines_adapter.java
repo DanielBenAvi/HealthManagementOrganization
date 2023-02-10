@@ -3,6 +3,7 @@ package com.example.healthmanagementorganization.Recyclerviews;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,9 @@ public class RV_medicines_adapter extends RecyclerView.Adapter<RV_medicines_view
     @Override
     public void onBindViewHolder(@NonNull RV_medicines_viewHolder holder, int position) {
         holder.med_item_ACTV_name.setText(getItem(position).getName());
+        holder.itemView.setOnClickListener(v -> {
+            Toast.makeText(v.getContext(), getItem(position).getPrice(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private Medicine getItem(int position) {
