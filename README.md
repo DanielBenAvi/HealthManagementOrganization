@@ -14,15 +14,19 @@ An health Management Organization App Built uisng Android
 * look at your appointments
 * create a new appointment with your chosen doctor
 
+### Madicines
+* Search medicines
+* Show Meidicines price
 
-## Features
+## Technologies
 1. FireBase - RealTime Database
 2. FireBase - Authentication
 
 
+
 ## Demo Video
-
-
 
 https://user-images.githubusercontent.com/94143762/213884749-86c5e91c-f8c8-4956-855c-a2864017b69b.mp4
 
+## Search Demo
+[device-2023-02-10-214338.webm](https://user-images.githubusercontent.com/94143762/218184151-8e11d33b-8d0c-4a9c-9e56-03db19b5e2ec.webm)
