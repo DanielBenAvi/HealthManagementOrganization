@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.Patient.MedicinesSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        style="@style/Headline"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_med_SV_search_bar"
+        style="@style/EditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/search_medicines" />
+        android:layout_height="60dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_med_RV_med_list"
+        style="@style/TextSmall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>
