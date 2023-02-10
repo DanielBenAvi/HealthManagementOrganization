@@ -14,5 +14,11 @@
         android:id="@+id/pat_add"
         android:enabled="true"
         android:icon="@drawable/add_48px"
-        android:title="Home" />
+        android:title="Add" />
+    <item
+        android:id="@+id/pat_med"
+        android:enabled="true"
+        android:icon="@drawable/medication_liquid_48px"
+        android:title="Medicines"
+        />
 </menu>

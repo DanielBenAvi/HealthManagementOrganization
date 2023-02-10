@@ -11,4 +11,7 @@ public class General {
     public static String Info = "Info";
     public static String Main = "My Appointments";
     public static String NewAPP = "New Appointment";
+    public static String Medicines = "Medicines Search";
+
+
 }

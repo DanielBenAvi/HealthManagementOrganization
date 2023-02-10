@@ -34,4 +34,5 @@
     <string name="doctor_doctor">doctor doctor</string>
     <string name="specialty">specialty</string>
     <string name="load_data">Load Data</string>
+    <string name="search_medicines">Search Medicines</string>
 </resources>

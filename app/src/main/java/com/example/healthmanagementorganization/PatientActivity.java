@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.example.healthmanagementorganization.Fragments.Patient.MedicinesSearchFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.NewAppointmentFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.NewAppointmentFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment;
@@ -37,6 +38,8 @@ public class PatientActivity extends AppCompatActivity {
     private NewAppointmentFragment newAppointmentFragment;
     private PatientMainFragment patientMainFragment;
     private PatientInfoFragment patientInfoFragment;
+
+    private MedicinesSearchFragment medicinesSearchFragment;
 
     NewAppointmentFragment_Callback newAppointmentFragment_callback = new NewAppointmentFragment_Callback() {
         @Override
@@ -103,6 +106,11 @@ public class PatientActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, newAppointmentFragment).commit();
                     main_ACTV_test.setText("" + General.NewAPP);
                     break;
+                case R.id.pat_med:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, medicinesSearchFragment).commit();
+                    main_ACTV_test.setText("" + General.Medicines);
+                    break;
+
             }
             return true;
         });
@@ -114,7 +122,7 @@ public class PatientActivity extends AppCompatActivity {
         patient_bottom_navigation = findViewById(R.id.patient_bottom_navigation);
         main_ACTV_test = findViewById(R.id.main_ACTV_test);
 
-
+        medicinesSearchFragment = new MedicinesSearchFragment();
         newAppointmentFragment = new NewAppointmentFragment();
         newAppointmentFragment.setCallback(newAppointmentFragment_callback);
         patientInfoFragment = new PatientInfoFragment();
