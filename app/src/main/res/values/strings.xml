@@ -35,4 +35,5 @@
     <string name="specialty">specialty</string>
     <string name="load_data">Load Data</string>
     <string name="search_medicines">Search Medicines</string>
+    <string name="request_medicine">Request Medicine</string>
 </resources>

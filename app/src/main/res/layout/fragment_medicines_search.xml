@@ -13,13 +13,24 @@
         android:layout_height="70dp"
         android:hint="@string/search_medicines" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_med_RV_med_list"
-        style="@style/TextSmall"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/search_med_ACTV_med_name"
+        style="@style/Text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/medicine_item" />
+        android:layout_height="70dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/search_med_ACTV_med_price"
+        style="@style/Text"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/search_med_ACB_req_med"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/request_medicine" />
 
 
 </LinearLayout>
