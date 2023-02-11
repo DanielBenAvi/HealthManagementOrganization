@@ -3,7 +3,6 @@ package com.example.healthmanagementorganization;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Doctor.DoctorMainFragment;
+import com.example.healthmanagementorganization.Fragments.Doctor.DoctorTasksFragment;
 import com.example.healthmanagementorganization.General.General;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class DoctorActivity extends AppCompatActivity {
     //Firebase
@@ -33,14 +35,11 @@ public class DoctorActivity extends AppCompatActivity {
     //Fragments
     private DoctorMainFragment doctorMainFragment;
     private DoctorInfoFragment doctorInfoFragment;
+    private DoctorTasksFragment doctorTasksFragment;
 
-    DoctorInfoFragment_Callback doctorInfoFragment_Callback = new DoctorInfoFragment_Callback() {
-        @Override
-        public void logOut() {
-            signOut();
-        }
-    };
+    DoctorInfoFragment_Callback doctorInfoFragment_Callback = this::signOut;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,7 @@ public class DoctorActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(General.FB_Doctors).child(mAuth.getCurrentUser().getUid()).exists()) {
+                if (dataSnapshot.child(General.FB_Doctors).child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).exists()) {
                     //do ur stuff
                     doc_ACTV_title.setText("Hello " + dataSnapshot.child(General.FB_Doctors).child(mAuth.getCurrentUser().getUid()).child(General.FB_firstName).getValue(String.class));
                 }  //do something if not exists
@@ -73,22 +72,24 @@ public class DoctorActivity extends AppCompatActivity {
         initViews();
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void initViews() {
-        doctor_bottom_navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.doc_info:
-                        doc_ACTV_title.setText(General.Info);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorInfoFragment).commit();
-                        break;
-                    case R.id.doc_home:
-                        doc_ACTV_title.setText(General.Main);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorMainFragment).commit();
-                        break;
-                }
-                return true;
+        doctor_bottom_navigation.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.doc_info:
+                    doc_ACTV_title.setText(General.Info);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorInfoFragment).commit();
+                    break;
+                case R.id.doc_home:
+                    doc_ACTV_title.setText(General.Main);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorMainFragment).commit();
+                    break;
+                case R.id.doc_task:
+                    doc_ACTV_title.setText(General.Task);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.doc_FRCV_fragment, doctorTasksFragment).commit();
+                    break;
             }
+            return true;
         });
 
 
@@ -101,6 +102,7 @@ public class DoctorActivity extends AppCompatActivity {
         doctorInfoFragment = new DoctorInfoFragment();
         doctorInfoFragment.setCallback(doctorInfoFragment_Callback);
         doctorMainFragment = new DoctorMainFragment();
+        doctorTasksFragment = new DoctorTasksFragment();
     }
 
     public void signOut() {

@@ -6,9 +6,17 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LogoActivity extends AppCompatActivity {
 
@@ -41,7 +49,7 @@ public class LogoActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        startApp();
+//                        login();
                     }
 
                     @Override
@@ -56,9 +64,62 @@ public class LogoActivity extends AppCompatActivity {
                 });
     }
 
-    private void startApp() {
+    private void login() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    private void startDoc() {
+        startActivity(new Intent(this, DoctorActivity.class));
+        finish();
+    }
+
+    private void startPat() {
+        startActivity(new Intent(this, PatientActivity.class));
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        startPat();
+                        //do ur stuff
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+
+            });
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        startDoc();
+                    } else {
+                        //do something if not exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }else {
+            login();
+        }
     }
 
 

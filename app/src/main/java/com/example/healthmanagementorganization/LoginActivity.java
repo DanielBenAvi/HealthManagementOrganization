@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                         //do something if not exists
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -123,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginBaseFragment).commit();
         }
     }
 
@@ -130,13 +133,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         mDatabase = db.getReference();
         findViews();
-        initViews();
-
     }
 
 
@@ -148,11 +148,6 @@ public class LoginActivity extends AppCompatActivity {
         registerFragment = new RegisterFragment();
         registerFragment.setFragmentCallback(registerFragment_Callback);
 
-
-    }
-
-    private void initViews() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.login_AFCV_fragmentContainer, loginBaseFragment).commit();
 
     }
 

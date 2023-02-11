@@ -10,5 +10,10 @@
         android:enabled="true"
         android:icon="@drawable/home_48px"
         android:title="@string/home" />
+    <item
+        android:id="@+id/doc_task"
+        android:enabled="true"
+        android:icon="@drawable/task_alt_48px"
+        android:title="@string/home" />
 
 </menu>
