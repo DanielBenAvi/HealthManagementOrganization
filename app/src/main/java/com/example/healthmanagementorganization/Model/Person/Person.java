@@ -1,6 +1,7 @@
 package com.example.healthmanagementorganization.Model.Person;
 
 import com.example.healthmanagementorganization.Model.Appointment;
+import com.example.healthmanagementorganization.Model.MedicineRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Person {
     private String email = "";
     private String phone = "";
     private List<Appointment> appointments = new ArrayList<>();
+    private List<MedicineRequest> requests = new ArrayList<>();
 
 
     public Person() {
@@ -68,6 +70,16 @@ public class Person {
 
     public Person setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+        return this;
+    }
+
+
+    public List<MedicineRequest> getRequests() {
+        return requests;
+    }
+
+    public Person setRequests(List<MedicineRequest> requests) {
+        this.requests = requests;
         return this;
     }
 
