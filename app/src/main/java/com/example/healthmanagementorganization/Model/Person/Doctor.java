@@ -33,7 +33,6 @@ public class Doctor extends Person implements DataBaseInterface {
         DatabaseReference ref = db.getReference("Doctors");
         String id = this.getUid() + "";
         ref.child(id).setValue(this);
-
     }
 
 }

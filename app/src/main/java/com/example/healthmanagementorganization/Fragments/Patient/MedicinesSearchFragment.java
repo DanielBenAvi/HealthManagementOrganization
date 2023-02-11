@@ -93,7 +93,7 @@ public class MedicinesSearchFragment extends Fragment {
             for (DataSnapshot d : snapshot.getChildren()) {
                 Doctor doc = d.getValue(Doctor.class);
                 assert doc != null;
-                names.add("" + doc.getFirstName() + " " + doc.getLastName());
+                names.add("" + doc.getFirstName());
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, names);
@@ -158,8 +158,6 @@ public class MedicinesSearchFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     doctor = ds.getValue(Doctor.class);
-                    assert doctor != null;
-                    Toast.makeText(getContext(), doctor.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -192,6 +190,14 @@ public class MedicinesSearchFragment extends Fragment {
     }
 
     private void requestMedicine() {
+        if (medicine == null) {
+            Toast.makeText(getContext(), "Choose Medicine", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (doctor == null) {
+            Toast.makeText(getContext(), "Choose Doctor", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // create new med request
         MedicineRequest medicineRequest = new MedicineRequest();
         medicineRequest.setMedicine(medicine);
@@ -202,7 +208,6 @@ public class MedicinesSearchFragment extends Fragment {
         // add to doc and patient
         patient.getRequests().add(medicineRequest);
         doctor.getRequests().add(medicineRequest);
-
         // load to DB
         patient.loadToDataBase();
         doctor.loadToDataBase();
@@ -210,6 +215,8 @@ public class MedicinesSearchFragment extends Fragment {
         search_med_ACACTV_search_bar.setText("");
         search_med_ACACTV_search_doc.setText("");
         search_med_ACTV_med_price.setText("");
+        doctor = null;
+        medicine = null;
 
     }
 
