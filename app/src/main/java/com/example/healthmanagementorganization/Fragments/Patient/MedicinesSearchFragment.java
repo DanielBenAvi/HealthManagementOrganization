@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -170,10 +169,27 @@ public class MedicinesSearchFragment extends Fragment {
 
     private void initViews() {
         search_med_ACB_req_med.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "TODO - request med", Toast.LENGTH_SHORT).show();
             // current user =>
             String uid = "" + Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(General.FB_Patients);
+            ref.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    patient = snapshot.getValue(Patient.class);
+
+                    requestMedicine(patient, doctor, medicine);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
+    }
+
+    private void requestMedicine(Patient patient, Doctor doctor, Medicine medicine) {
     }
 
     private void findViews(View view) {
