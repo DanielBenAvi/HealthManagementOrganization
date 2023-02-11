@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.healthmanagementorganization.General.General;
 import com.example.healthmanagementorganization.Model.Medicine;
+import com.example.healthmanagementorganization.Model.MedicineRequest;
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
@@ -156,6 +158,8 @@ public class MedicinesSearchFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     doctor = ds.getValue(Doctor.class);
+                    assert doctor != null;
+                    Toast.makeText(getContext(), doctor.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -176,9 +180,7 @@ public class MedicinesSearchFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     patient = snapshot.getValue(Patient.class);
-
-                    requestMedicine(patient, doctor, medicine);
-
+                    requestMedicine();
                 }
 
                 @Override
@@ -189,7 +191,26 @@ public class MedicinesSearchFragment extends Fragment {
         });
     }
 
-    private void requestMedicine(Patient patient, Doctor doctor, Medicine medicine) {
+    private void requestMedicine() {
+        // create new med request
+        MedicineRequest medicineRequest = new MedicineRequest();
+        medicineRequest.setMedicine(medicine);
+        medicineRequest.setDocID(doctor.getUid());
+        medicineRequest.setUid(patient.getUid());
+        medicineRequest.setStatus(General.MedicineRequestStatus.NEW.value);
+
+        // add to doc and patient
+        patient.getRequests().add(medicineRequest);
+        doctor.getRequests().add(medicineRequest);
+
+        // load to DB
+        patient.loadToDataBase();
+        doctor.loadToDataBase();
+
+        search_med_ACACTV_search_bar.setText("");
+        search_med_ACACTV_search_doc.setText("");
+        search_med_ACTV_med_price.setText("");
+
     }
 
     private void findViews(View view) {

@@ -15,4 +15,14 @@ public class General {
     public static String Medicines = "Medicines Search";
 
 
+    public enum MedicineRequestStatus {
+        DECLINE(-1), NEW(0), APPROVE(1);
+        public final int value;
+
+        MedicineRequestStatus(int i) {
+            this.value = i;
+        }
+    }
+
+
 }
