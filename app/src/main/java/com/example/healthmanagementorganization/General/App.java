@@ -3,7 +3,7 @@ package com.example.healthmanagementorganization.General;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.healthmanagementorganization.Database.Database;
+import com.example.healthmanagementorganization.Model.Database.Database;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 

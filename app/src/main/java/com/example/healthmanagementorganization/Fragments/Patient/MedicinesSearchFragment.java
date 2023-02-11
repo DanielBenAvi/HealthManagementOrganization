@@ -17,7 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.healthmanagementorganization.General.General;
 import com.example.healthmanagementorganization.Model.Medicine;
+import com.example.healthmanagementorganization.Model.Person.Doctor;
+import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,15 +28,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MedicinesSearchFragment extends Fragment {
 
-    private AppCompatAutoCompleteTextView search_med_ACACTV_search_bar;
-    private AppCompatTextView search_med_ACTV_med_name, search_med_ACTV_med_price;
+    private AppCompatAutoCompleteTextView search_med_ACACTV_search_bar, search_med_ACACTV_search_doc;
+    private AppCompatTextView search_med_ACTV_med_price;
     private AppCompatButton search_med_ACB_req_med;
-    private DatabaseReference databaseReference;
+    private DatabaseReference medRef, docRef;
 
+    private Medicine medicine;
+    private Doctor doctor;
+    private Patient patient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,13 +56,26 @@ public class MedicinesSearchFragment extends Fragment {
     }
 
     private void loadData() {
-        databaseReference = FirebaseDatabase.getInstance().getReference(General.FB_Medicine);
-
-
-        ValueEventListener event = new ValueEventListener() {
+        // load drugs for search
+        medRef = FirebaseDatabase.getInstance().getReference(General.FB_Medicine);
+        ValueEventListener medSearch = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                populateSearch(snapshot);
+                medSearch(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        };
+        medRef.addListenerForSingleValueEvent(medSearch);
+
+        // load docs for search
+        docRef = FirebaseDatabase.getInstance().getReference(General.FB_Doctors);
+        ValueEventListener docSearch = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                docSearch(snapshot);
             }
 
             @Override
@@ -63,11 +83,33 @@ public class MedicinesSearchFragment extends Fragment {
 
             }
         };
-
-        databaseReference.addListenerForSingleValueEvent(event);
+        docRef.addListenerForSingleValueEvent(docSearch);
     }
 
-    private void populateSearch(DataSnapshot snapshot) {
+    private void docSearch(DataSnapshot snapshot) {
+        ArrayList<String> names = new ArrayList<>();
+        if (snapshot.exists()) {
+            for (DataSnapshot d : snapshot.getChildren()) {
+                Doctor doc = d.getValue(Doctor.class);
+                assert doc != null;
+                names.add("" + doc.getFirstName() + " " + doc.getLastName());
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, names);
+            search_med_ACACTV_search_doc.setAdapter(adapter);
+            search_med_ACACTV_search_doc.setOnItemClickListener((parent, view, position, id) -> {
+                String name = search_med_ACACTV_search_doc.getText().toString();
+                searchDoc(name);
+            });
+
+
+        } else {
+            Log.d("DUFAM", "No Doc Found");
+        }
+    }
+
+
+    private void medSearch(DataSnapshot snapshot) {
         ArrayList<String> names = new ArrayList<>();
         if (snapshot.exists()) {
             for (DataSnapshot d : snapshot.getChildren()) {
@@ -76,32 +118,45 @@ public class MedicinesSearchFragment extends Fragment {
                 names.add(m.getName());
             }
 
-            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, names);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, names);
             search_med_ACACTV_search_bar.setAdapter(adapter);
             search_med_ACACTV_search_bar.setOnItemClickListener((parent, view, position, id) -> {
                 String name = search_med_ACACTV_search_bar.getText().toString();
-
-                searchUser(name);
+                searchDrug(name);
             });
 
 
         } else {
-            Log.d("DUFAM", "No Data Found");
+            Log.d("DUFAM", "No Drug Found");
         }
     }
 
-    private void searchUser(String name) {
-        databaseReference.orderByChild("name").equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void searchDrug(String name) {
+        medRef.orderByChild("name").equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        Medicine m = ds.getValue(Medicine.class);
-                        assert m != null;
-                        search_med_ACTV_med_name.setText("" + m.getName());
-                        search_med_ACTV_med_price.setText("" + m.getPrice());
+                        medicine = ds.getValue(Medicine.class);
+                        assert medicine != null;
+                        search_med_ACTV_med_price.setText("" + medicine.getPrice());
                     }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void searchDoc(String name) {
+        docRef.orderByChild("firstName").equalTo(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    doctor = ds.getValue(Doctor.class);
                 }
             }
 
@@ -116,12 +171,14 @@ public class MedicinesSearchFragment extends Fragment {
     private void initViews() {
         search_med_ACB_req_med.setOnClickListener(v -> {
             Toast.makeText(getContext(), "TODO - request med", Toast.LENGTH_SHORT).show();
+            // current user =>
+            String uid = "" + Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         });
     }
 
     private void findViews(View view) {
         search_med_ACACTV_search_bar = view.findViewById(R.id.search_med_ACACTV_search_bar);
-        search_med_ACTV_med_name = view.findViewById(R.id.search_med_ACTV_med_name);
+        search_med_ACACTV_search_doc = view.findViewById(R.id.search_med_ACACTV_search_doc);
         search_med_ACTV_med_price = view.findViewById(R.id.search_med_ACTV_med_price);
         search_med_ACB_req_med = view.findViewById(R.id.search_med_ACB_req_med);
     }

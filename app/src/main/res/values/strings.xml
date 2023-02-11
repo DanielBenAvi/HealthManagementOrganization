@@ -36,4 +36,5 @@
     <string name="load_data">Load Data</string>
     <string name="search_medicines">Search Medicines</string>
     <string name="request_medicine">Request Medicine</string>
+    <string name="doctor_name">Doctor name</string>
 </resources>

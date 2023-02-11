@@ -1,4 +1,4 @@
-package com.example.healthmanagementorganization.Database;
+package com.example.healthmanagementorganization.Model.Database;
 
 
 import com.example.healthmanagementorganization.General.App;
