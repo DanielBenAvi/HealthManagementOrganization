@@ -1,10 +1,10 @@
 package com.example.healthmanagementorganization.Model.Person;
 
-import com.example.healthmanagementorganization.Model.DataBase;
+import com.example.healthmanagementorganization.Model.Database.DataBaseInterface;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Doctor extends Person implements DataBase {
+public class Doctor extends Person implements DataBaseInterface {
     private String specialty = "";
 
     public Doctor() {

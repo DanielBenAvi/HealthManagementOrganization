@@ -2,12 +2,12 @@ package com.example.healthmanagementorganization.Model.Person;
 
 import android.util.Log;
 
-import com.example.healthmanagementorganization.Model.DataBase;
+import com.example.healthmanagementorganization.Model.Database.DataBaseInterface;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class Patient extends Person implements DataBase {
+public class Patient extends Person implements DataBaseInterface {
 
 
     public Patient() {
