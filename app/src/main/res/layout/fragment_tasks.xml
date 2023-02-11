@@ -5,5 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Doctor.DoctorTasksFragment">
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasks_RV_tasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/medicine_item" />
 </FrameLayout>

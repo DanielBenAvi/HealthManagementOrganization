@@ -37,4 +37,6 @@
     <string name="search_medicines">Search Medicines</string>
     <string name="request_medicine">Request Medicine</string>
     <string name="doctor_name">Doctor name</string>
+    <string name="approve">Approve</string>
+    <string name="decline">Decline</string>
 </resources>
