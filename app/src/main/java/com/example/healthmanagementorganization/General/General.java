@@ -16,6 +16,7 @@ public class General {
     public static String Main = "My Appointments";
     public static String NewAPP = "New Appointment";
     public static String Medicines = "Medicines Search";
+    public static String Prescription = "Prescription";
     public static String Task = "Medicines";
 
 

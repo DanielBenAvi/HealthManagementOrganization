@@ -14,6 +14,7 @@ import com.example.healthmanagementorganization.Fragments.Patient.NewAppointment
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientInfoFragment_Callback;
 import com.example.healthmanagementorganization.Fragments.Patient.PatientMainFragment;
+import com.example.healthmanagementorganization.Fragments.Patient.PatientPrescriptionFragment;
 import com.example.healthmanagementorganization.General.General;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,8 @@ public class PatientActivity extends AppCompatActivity {
     private NewAppointmentFragment newAppointmentFragment;
     private PatientMainFragment patientMainFragment;
     private PatientInfoFragment patientInfoFragment;
+
+    private PatientPrescriptionFragment patientPrescriptionFragment;
 
     private MedicinesSearchFragment medicinesSearchFragment;
 
@@ -110,6 +113,10 @@ public class PatientActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, medicinesSearchFragment).commit();
                     main_ACTV_test.setText("" + General.Medicines);
                     break;
+                case R.id.pat_med_list:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_FCV_main, patientPrescriptionFragment).commit();
+                    main_ACTV_test.setText("" + General.Prescription);
+                    break;
 
             }
             return true;
@@ -128,5 +135,6 @@ public class PatientActivity extends AppCompatActivity {
         patientInfoFragment = new PatientInfoFragment();
         patientInfoFragment.setCallback(patientInfoFragment_callback);
         patientMainFragment = new PatientMainFragment();
+        patientPrescriptionFragment = new PatientPrescriptionFragment();
     }
 }

@@ -13,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthmanagementorganization.General.General;
 import com.example.healthmanagementorganization.Model.MedicineRequest;
+import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -46,7 +50,31 @@ public class RV_tasks_adapter extends RecyclerView.Adapter<RV_tasks_adapter.RV_T
     public void onBindViewHolder(@NonNull RV_TaskViewHolder holder, int position) {
         MedicineRequest m = getItem(position);
         holder.med_item_ACTV_med_name.setText(m.getMedicine().getName());
-        holder.med_item_ACTV_pat_name.setText(m.getUid());
+
+
+        // get pat name
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = db.getReference();
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mDatabase.child(General.FB_Patients).child(m.getUid()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Patient p = task.getResult().getValue(Patient.class);
+                        holder.med_item_ACTV_pat_name.setText(p.getFirstName() + " " + p.getLastName());
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
 
         // update request status locally
         holder.med_item_ACB_approve.setOnClickListener(v -> {

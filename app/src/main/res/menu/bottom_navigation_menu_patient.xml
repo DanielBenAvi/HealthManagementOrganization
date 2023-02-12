@@ -21,4 +21,10 @@
         android:icon="@drawable/medication_liquid_48px"
         android:title="Medicines"
         />
+    <item
+        android:id="@+id/pat_med_list"
+        android:enabled="true"
+        android:icon="@drawable/pill_48px"
+        android:title="Prescription"
+        />
 </menu>
