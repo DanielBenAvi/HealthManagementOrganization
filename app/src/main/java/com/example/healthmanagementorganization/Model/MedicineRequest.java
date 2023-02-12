@@ -1,14 +1,19 @@
 package com.example.healthmanagementorganization.Model;
 
+import java.util.UUID;
+
 public class MedicineRequest {
     private Medicine medicine;
     private String docID;
     private String uid;
 
+    private String requestID;
+
     private int status;
 
     public MedicineRequest() {
-
+        UUID uuid = UUID.randomUUID();
+        requestID = uuid.toString();
     }
 
     public Medicine getMedicine() {
@@ -45,5 +50,9 @@ public class MedicineRequest {
     public MedicineRequest setStatus(int status) {
         this.status = status;
         return this;
+    }
+
+    public String getRequestID() {
+        return requestID;
     }
 }

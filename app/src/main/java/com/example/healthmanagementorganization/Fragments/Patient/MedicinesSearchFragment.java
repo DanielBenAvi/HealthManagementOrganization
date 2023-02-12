@@ -206,8 +206,8 @@ public class MedicinesSearchFragment extends Fragment {
         medicineRequest.setStatus(General.MedicineRequestStatus.NEW.value);
 
         // add to doc and patient
-        patient.getRequests().add(medicineRequest);
-        doctor.getRequests().add(medicineRequest);
+        patient.getRequests().put(medicineRequest.getRequestID(), medicineRequest);
+        doctor.getRequests().put(medicineRequest.getRequestID(), medicineRequest);
         // load to DB
         patient.loadToDataBase();
         doctor.loadToDataBase();

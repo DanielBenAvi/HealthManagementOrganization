@@ -4,7 +4,9 @@ import com.example.healthmanagementorganization.Model.Appointment;
 import com.example.healthmanagementorganization.Model.MedicineRequest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Person {
     private String uid = "";
@@ -13,7 +15,7 @@ public class Person {
     private String email = "";
     private String phone = "";
     private List<Appointment> appointments = new ArrayList<>();
-    private List<MedicineRequest> requests = new ArrayList<>();
+    private Map<String, MedicineRequest> requests = new HashMap<>();
 
 
     public Person() {
@@ -74,11 +76,11 @@ public class Person {
     }
 
 
-    public List<MedicineRequest> getRequests() {
+    public Map<String, MedicineRequest> getRequests() {
         return requests;
     }
 
-    public Person setRequests(List<MedicineRequest> requests) {
+    public Person setRequests(Map<String, MedicineRequest> requests) {
         this.requests = requests;
         return this;
     }
@@ -87,4 +89,6 @@ public class Person {
     public String toString() {
         return "Person{" + "uid='" + uid + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + '}';
     }
+
+
 }

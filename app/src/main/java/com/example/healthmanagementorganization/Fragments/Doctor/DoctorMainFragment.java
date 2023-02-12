@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DoctorMainFragment extends Fragment implements Fragment_interface {
 
@@ -45,7 +46,7 @@ public class DoctorMainFragment extends Fragment implements Fragment_interface {
 
 
     private void getAllappointmentsFromFB() {
-        DatabaseReference mDatabase = db.getReference().child(General.FB_Doctors).child("" + mAuth.getCurrentUser().getUid()).child(General.FB_appointmets);
+        DatabaseReference mDatabase = db.getReference().child(General.FB_Doctors).child("" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).child(General.FB_appointmets);
 
 
         mDatabase.get().addOnCompleteListener(task -> {
@@ -60,7 +61,6 @@ public class DoctorMainFragment extends Fragment implements Fragment_interface {
     }
 
     private void setAllAppointments() {
-        // todo: get list of appointments of current user
 
 
         RV_appointment_adapter rv_appointment_adapter = new RV_appointment_adapter(getContext(), appointments);
@@ -68,7 +68,6 @@ public class DoctorMainFragment extends Fragment implements Fragment_interface {
         docMain_RV_appointments.setAdapter(rv_appointment_adapter);
 
         rv_appointment_adapter.setAdapter((appointment, pos) -> {
-            // todo: do something
         });
 
 

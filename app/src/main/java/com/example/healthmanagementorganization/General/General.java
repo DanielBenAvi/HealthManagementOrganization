@@ -9,6 +9,9 @@ public class General {
     public static final String FB_Patients = "Patients";
     public static final String FB_firstName = "firstName";
     public static String FB_LastName = "lastName";
+    public static String FB_requests = "requests";
+
+
     public static String Info = "Info";
     public static String Main = "My Appointments";
     public static String NewAPP = "New Appointment";
