@@ -36,7 +36,7 @@ An health Management Organization App Built uisng Android
 [requestMed.webm](https://user-images.githubusercontent.com/94143762/218332836-19d068c2-00d3-4453-8187-e94fa0f3286e.webm)
 
 ### Doctor approve
-![Approve](https://user-images.githubusercontent.com/94143762/218332888-a6426418-435f-4736-987e-7daaa4a92f77.png | width=100)
+![](https://user-images.githubusercontent.com/94143762/218332888-a6426418-435f-4736-987e-7daaa4a92f77.png)
 
 ### View in Patient
-![approved](https://user-images.githubusercontent.com/94143762/218332937-fcffb441-91ce-4da1-8009-cbe1f24af4e4.png | width=100)
+![](https://user-images.githubusercontent.com/94143762/218332937-fcffb441-91ce-4da1-8009-cbe1f24af4e4.png)
