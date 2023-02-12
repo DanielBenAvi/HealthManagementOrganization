@@ -1,14 +1,6 @@
 package com.example.healthmanagementorganization.Fragments.Login;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatRadioButton;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +8,18 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.fragment.app.Fragment;
+
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment {
@@ -35,7 +32,6 @@ public class RegisterFragment extends Fragment {
     private AppCompatEditText register_ACET_phone;
     private AppCompatEditText register_ACET_password;
     private AppCompatRadioButton register_APRB_doctor;
-    private AppCompatRadioButton register_APRB_patient;
     private AppCompatEditText register_ACET_specialization;
     private AppCompatButton register_ACBTN_register;
     private RadioGroup register_RG_type;
@@ -50,7 +46,7 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         mAuth = FirebaseAuth.getInstance();
         findViews(view);
-        initViews(view);
+        initViews();
 
         return view;
     }
@@ -61,7 +57,6 @@ public class RegisterFragment extends Fragment {
         register_ACET_email = view.findViewById(R.id.register_ACET_email);
         register_ACET_password = view.findViewById(R.id.register_ACET_password);
         register_APRB_doctor = view.findViewById(R.id.register_APRB_doctor);
-        register_APRB_patient = view.findViewById(R.id.register_APRB_patient);
         register_ACET_specialization = view.findViewById(R.id.register_ACET_specialization);
         register_ACBTN_register = view.findViewById(R.id.register_ACBTN_register);
         register_CLPB_progress = view.findViewById(R.id.register_CLPB_progress);
@@ -69,16 +64,13 @@ public class RegisterFragment extends Fragment {
         register_RG_type = view.findViewById(R.id.register_RG_type);
     }
 
-    private void initViews(View view) {
+    private void initViews() {
 
-        register_RG_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.register_APRB_doctor) {
-                    register_ACET_specialization.setVisibility(View.VISIBLE);
-                } else {
-                    register_ACET_specialization.setVisibility(View.INVISIBLE);
-                }
+        register_RG_type.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.register_APRB_doctor) {
+                register_ACET_specialization.setVisibility(View.VISIBLE);
+            } else {
+                register_ACET_specialization.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -104,47 +96,44 @@ public class RegisterFragment extends Fragment {
 
 
                 // register in firebase
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            String uid = "" + mAuth.getCurrentUser().getUid();
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String uid = "" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-                            // Check if the user is a doctor or a patient
-                            if (register_APRB_doctor.isChecked()) {
-                                Doctor d = new Doctor();
-                                d.setUid(uid);
-                                d.setFirstName(firstname);
-                                d.setLastName(lastname);
-                                d.setEmail(email);
-                                d.setPhone(phone);
-                                d.setSpecialty(specialization);
-                                d.loadToDataBase();
-
-
-                            } else {
-                                Patient p = new Patient();
-                                p.setUid(uid);
-                                p.setFirstName(firstname);
-                                p.setLastName(lastname);
-                                p.setEmail(email);
-                                p.setPhone(phone);
-
-                                p.loadToDataBase();
-
-
-                            }
-                            // go to login fragment
-                            registerFragment_Callback.onRegisterSuccess();
-                            register_CLPB_progress.setVisibility(View.INVISIBLE);
+                        // Check if the user is a doctor or a patient
+                        if (register_APRB_doctor.isChecked()) {
+                            Doctor d = new Doctor();
+                            d.setUid(uid);
+                            d.setFirstName(firstname);
+                            d.setLastName(lastname);
+                            d.setEmail(email);
+                            d.setPhone(phone);
+                            d.setSpecialty(specialization);
+                            d.loadToDataBase();
 
 
                         } else {
-                            Log.d("TAG", "onComplete: " + task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
+                            Patient p = new Patient();
+                            p.setUid(uid);
+                            p.setFirstName(firstname);
+                            p.setLastName(lastname);
+                            p.setEmail(email);
+                            p.setPhone(phone);
 
+                            p.loadToDataBase();
+
+
+                        }
+                        // go to login fragment
+                        registerFragment_Callback.onRegisterSuccess();
+                        register_CLPB_progress.setVisibility(View.INVISIBLE);
+
+
+                    } else {
+                        Log.d("TAG", "onComplete: " + task.getException());
+                        Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
+
                 });
 
             }

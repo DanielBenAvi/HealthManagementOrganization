@@ -1,5 +1,6 @@
 package com.example.healthmanagementorganization.Fragments.Patient;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 
 public class PatientInfoFragment extends Fragment implements Fragment_interface {
 
-    private AppCompatTextView  info_ACTV_phone, info_ACTV_mail, info_ACTV_name;
+    private AppCompatTextView info_ACTV_phone, info_ACTV_mail, info_ACTV_name;
     private AppCompatButton info_ACBTN_logout;
 
     private PatientInfoFragment_Callback patientInfoFragment_callback;
@@ -49,16 +52,18 @@ public class PatientInfoFragment extends Fragment implements Fragment_interface 
         DatabaseReference mDatabase = db.getReference();
 
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(General.FB_Patients).child(mAuth.getCurrentUser().getUid()).exists()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(General.FB_Patients).child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).exists()) {
                     mDatabase.child(General.FB_Patients).child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Patient p = task.getResult().getValue(Patient.class);
 
-                            info_ACTV_name.setText("Name: \n\t\t" + p.getFirstName() + " " + p.getLastName());
-                            info_ACTV_mail.setText("Email: \n\t\t" + p.getEmail());
-                            info_ACTV_phone.setText("Phone: \n\t\t" + p.getPhone());
+                            assert p != null;
+                            info_ACTV_name.setText("Name: " + p.getFirstName() + " " + p.getLastName());
+                            info_ACTV_mail.setText("Email: " + p.getEmail());
+                            info_ACTV_phone.setText("Phone: " + p.getPhone());
 
                         }
                     });
@@ -76,9 +81,7 @@ public class PatientInfoFragment extends Fragment implements Fragment_interface 
     }
 
     public void initViews() {
-        info_ACBTN_logout.setOnClickListener(v -> {
-            patientInfoFragment_callback.logout();
-        });
+        info_ACBTN_logout.setOnClickListener(v -> patientInfoFragment_callback.logout());
 
     }
 

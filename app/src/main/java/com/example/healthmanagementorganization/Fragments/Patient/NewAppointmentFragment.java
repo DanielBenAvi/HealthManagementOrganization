@@ -23,7 +23,6 @@ import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.Model.Person.Patient;
 import com.example.healthmanagementorganization.R;
 import com.example.healthmanagementorganization.Recyclerviews.RV_doctor_adapter;
-import com.example.healthmanagementorganization.Recyclerviews.RV_doctor_callback;
 import com.example.healthmanagementorganization.Recyclerviews.RV_hours_adapter;
 import com.example.healthmanagementorganization.Recyclerviews.RV_hours_callback;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -111,7 +110,10 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
         });
 
 
-        newapp_ACBTN_saveData.setOnClickListener(v -> saveAppointment());
+        newapp_ACBTN_saveData.setOnClickListener(v -> {
+            saveAppointment();
+            newAppointmentFragment_callback.changeFragment();
+        });
     }
 
     private void setHoursRecycleView(ArrayList<Integer> hours) {
@@ -170,34 +172,28 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
         newapp_RV_doctors.setLayoutManager(new LinearLayoutManager(getContext()));
         newapp_RV_doctors.setAdapter(rv_doctor_adapter);
 
-        rv_doctor_adapter.setAdapter(new RV_doctor_callback() {
-            @Override
-            public void itemClicked(Doctor doctor, int position) {
-                newapp_RV_doctors.setVisibility(View.GONE);
-                // make date picker visible
-                newapp_LL_date_picker.setVisibility(View.VISIBLE);
+        rv_doctor_adapter.setAdapter((doctor, position) -> {
+            newapp_RV_doctors.setVisibility(View.GONE);
+            // make date picker visible
+            newapp_LL_date_picker.setVisibility(View.VISIBLE);
 
-                currentDoctor = doctor;
+            currentDoctor = doctor;
 
 
-            }
         });
     }
 
     private void getAllDoctors() {
-        DatabaseReference mDatabase = db.getReference().child("Doctors");
+        DatabaseReference mDatabase = db.getReference().child(General.FB_Doctors);
         ArrayList<Doctor> docs = new ArrayList<>();
 
-        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DataSnapshot ds : task.getResult().getChildren()) {
-                        Doctor d = ds.getValue(Doctor.class);
-                        docs.add(d);
-                    }
-                    setDoctorRecycleView(docs);
+        mDatabase.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DataSnapshot ds : task.getResult().getChildren()) {
+                    Doctor d = ds.getValue(Doctor.class);
+                    docs.add(d);
                 }
+                setDoctorRecycleView(docs);
             }
         });
 

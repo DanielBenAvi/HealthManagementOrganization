@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import com.example.healthmanagementorganization.General.General;
 import com.example.healthmanagementorganization.Model.MedicineRequest;
 import com.example.healthmanagementorganization.R;
 import com.example.healthmanagementorganization.Recyclerviews.RV_tasks_adapter;
-import com.example.healthmanagementorganization.Recyclerviews.RV_tasks_callback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +28,6 @@ public class DoctorTasksFragment extends Fragment {
     private ArrayList<MedicineRequest> requests;
     private FirebaseAuth mAuth;
     private FirebaseDatabase db;
-
 
 
     @Override

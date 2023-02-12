@@ -1,5 +1,6 @@
 package com.example.healthmanagementorganization.Fragments.Doctor;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +15,14 @@ import com.example.healthmanagementorganization.General.Callback_interface;
 import com.example.healthmanagementorganization.General.Fragment_interface;
 import com.example.healthmanagementorganization.Model.Person.Doctor;
 import com.example.healthmanagementorganization.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 
 public class DoctorInfoFragment extends Fragment implements Fragment_interface {
@@ -66,20 +67,19 @@ public class DoctorInfoFragment extends Fragment implements Fragment_interface {
         DatabaseReference mDatabase = db.getReference();
 
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Doctors").child(mAuth.getCurrentUser().getUid()).exists()) {
-                    mDatabase.child("Doctors").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Doctor d = task.getResult().getValue(Doctor.class);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("Doctors").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).exists()) {
+                    mDatabase.child("Doctors").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Doctor d = task.getResult().getValue(Doctor.class);
 
-                                doc_info_ACTV_name.setText("Name: \n\t\t" + d.getFirstName() + " " + d.getLastName());
-                                doc_info_ACTV_mail.setText("Email: \n\t\t" + d.getEmail());
-                                doc_info_ACTV_phone.setText("Phone: \n\t\t" + d.getPhone());
-                                doc_info_ACTV_specialty.setText("Specialty: \n\t\t" + d.getSpecialty());
-                            }
+                            assert d != null;
+                            doc_info_ACTV_name.setText("Name: " + d.getFirstName() + " " + d.getLastName());
+                            doc_info_ACTV_mail.setText("Email: " + d.getEmail());
+                            doc_info_ACTV_phone.setText("Phone: " + d.getPhone());
+                            doc_info_ACTV_specialty.setText("Specialty: " + d.getSpecialty());
                         }
                     });
                 }

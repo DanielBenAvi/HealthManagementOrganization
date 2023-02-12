@@ -1,15 +1,14 @@
 package com.example.healthmanagementorganization.Fragments.Login;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.healthmanagementorganization.R;
 
@@ -37,19 +36,9 @@ public class LoginBaseFragment extends Fragment {
 
     private void initViews() {
 
-        loginF_ACB_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginBaseFragment_Callback.LoginFragment();
-            }
-        });
+        loginF_ACB_login.setOnClickListener(v -> loginBaseFragment_Callback.LoginFragment());
 
-        loginF_ACB_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginBaseFragment_Callback.RegisterFragment();
-            }
-        });
+        loginF_ACB_register.setOnClickListener(v -> loginBaseFragment_Callback.RegisterFragment());
 
 
     }
