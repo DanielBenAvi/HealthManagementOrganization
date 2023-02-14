@@ -121,7 +121,6 @@ public class PatientActivity extends AppCompatActivity {
             }
             return true;
         });
-
     }
 
     private void findViews() {
