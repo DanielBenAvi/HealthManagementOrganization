@@ -60,7 +60,9 @@ public class DoctorInfoFragment extends Fragment implements Fragment_interface {
 
     }
 
-
+    /**
+     * Get current user data from fire base
+     */
     private void getUserData() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase db = FirebaseDatabase.getInstance();

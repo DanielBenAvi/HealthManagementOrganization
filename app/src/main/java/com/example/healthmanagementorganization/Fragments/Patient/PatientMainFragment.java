@@ -49,9 +49,6 @@ public class PatientMainFragment extends Fragment {
     }
 
     private void setAllAppointments() {
-        // todo: get list of appointments of current user
-
-
         RV_appointment_adapter rv_appointment_adapter = new RV_appointment_adapter(getContext(), appointments);
         patientMain_RV_appointments.setLayoutManager(new LinearLayoutManager(getContext()));
         patientMain_RV_appointments.setAdapter(rv_appointment_adapter);
@@ -59,17 +56,12 @@ public class PatientMainFragment extends Fragment {
         rv_appointment_adapter.setAdapter(new RV_appointment_callback() {
             @Override
             public void itemClicked(Appointment appointment, int pos) {
-                // todo: do something
             }
         });
-
-
     }
 
     private void getAllappointmentsFromFB() {
         DatabaseReference mDatabase = db.getReference().child(General.FB_Patients).child("" + mAuth.getCurrentUser().getUid()).child(General.FB_appointmets);
-
-
         mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {

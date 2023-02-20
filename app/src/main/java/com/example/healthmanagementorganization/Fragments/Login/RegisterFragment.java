@@ -75,32 +75,29 @@ public class RegisterFragment extends Fragment {
         });
 
         register_ACBTN_register.setOnClickListener(v -> {
-            boolean flag = true;
             register_CLPB_progress.setVisibility(View.VISIBLE);
             String firstname = register_ACET_firstname.getText() + "";
-            flag = checkIfEmpty(firstname, "add firstname");
             String lastname = register_ACET_lastname.getText() + "";
-            flag = checkIfEmpty(lastname, "add lastname");
             String email = register_ACET_email.getText() + "";
-            flag = checkIfEmpty(email, "add email");
             String phone = register_ACET_phone.getText() + "";
-            flag = checkIfEmpty(phone, "add phone");
             String password = register_ACET_password.getText() + "";
-            flag = checkIfEmpty(password, "add password");
             String specialization = register_ACET_specialization.getText() + "";
-            if (register_APRB_doctor.isChecked()) {
-                flag = checkIfEmpty(specialization, "add specialization");
-            }
-
-            if (!flag) {
 
 
+            if (
+                    checkIfEmpty(firstname, "add firstname") ||
+                            checkIfEmpty(lastname, "add lastname") ||
+                            checkIfEmpty(email, "add email") ||
+                            checkIfEmpty(phone, "add phone") ||
+                            checkIfEmpty(password, "add password")
+            ) {
                 // register in firebase
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String uid = "" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
                         // Check if the user is a doctor or a patient
+                        // create accordingly and load to DB
                         if (register_APRB_doctor.isChecked()) {
                             Doctor d = new Doctor();
                             d.setUid(uid);
@@ -146,9 +143,9 @@ public class RegisterFragment extends Fragment {
     private boolean checkIfEmpty(String obj, String msg) {
         if (obj.isEmpty()) {
             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 

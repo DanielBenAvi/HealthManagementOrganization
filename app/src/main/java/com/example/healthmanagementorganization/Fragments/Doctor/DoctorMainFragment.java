@@ -45,6 +45,9 @@ public class DoctorMainFragment extends Fragment implements Fragment_interface {
     }
 
 
+    /**
+     * Gets all appointments from DB
+     */
     private void getAllappointmentsFromFB() {
         DatabaseReference mDatabase = db.getReference().child(General.FB_Doctors).child("" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).child(General.FB_appointmets);
 
@@ -60,9 +63,10 @@ public class DoctorMainFragment extends Fragment implements Fragment_interface {
         });
     }
 
+    /**
+     * init all appointments adapter RV
+     */
     private void setAllAppointments() {
-
-
         RV_appointment_adapter rv_appointment_adapter = new RV_appointment_adapter(getContext(), appointments);
         docMain_RV_appointments.setLayoutManager(new LinearLayoutManager(getContext()));
         docMain_RV_appointments.setAdapter(rv_appointment_adapter);

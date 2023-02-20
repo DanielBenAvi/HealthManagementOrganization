@@ -74,6 +74,7 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
 
     @SuppressLint("SetTextI18n")
     public void initViews() {
+        // date picker
         newapp_ACBTN_date.setOnClickListener(v -> {
             MaterialDatePicker<Long> builder = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").build();
             builder.show(getParentFragmentManager(), "TAG");
@@ -116,6 +117,11 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
         });
     }
 
+    /**
+     * create hours RV
+     *
+     * @param hours list of available hours
+     */
     private void setHoursRecycleView(ArrayList<Integer> hours) {
         RV_hours_adapter rv_hours_adapter = new RV_hours_adapter(getContext(), hours);
         newapp_RV_hours.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -132,22 +138,25 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
 
     }
 
+    /**
+     * Save new Appointment to DB
+     */
     private void saveAppointment() {
         // save appointment to dr appointments
         currentDoctor.getAppointments().add(new Appointment().setDoctorID(currentDoctor.getUid()).setPatientID("" + mAuth.getCurrentUser().getUid()).setDate(currentDate).setHour(currentHour));
         currentDoctor.loadToDataBase();
 
-        // todo: save appointment to patient appointment
         DatabaseReference mDatabase = db.getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("Patients").child(mAuth.getCurrentUser().getUid()).exists()) {
                     mDatabase.child("Patients").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
                                 Patient p = task.getResult().getValue(Patient.class);
+                                assert p != null;
                                 p.getAppointments().add(new Appointment().setDoctorID(currentDoctor.getUid()).setPatientID("" + mAuth.getCurrentUser().getUid()).setDate(currentDate).setHour(currentHour));
                                 p.loadToDataBase();
                             }
@@ -183,6 +192,9 @@ public class NewAppointmentFragment extends Fragment implements Fragment_interfa
         });
     }
 
+    /**
+     * get all doctors from FB
+     */
     private void getAllDoctors() {
         DatabaseReference mDatabase = db.getReference().child(General.FB_Doctors);
         ArrayList<Doctor> docs = new ArrayList<>();

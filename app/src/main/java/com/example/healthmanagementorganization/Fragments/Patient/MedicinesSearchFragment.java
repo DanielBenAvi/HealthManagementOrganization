@@ -56,6 +56,9 @@ public class MedicinesSearchFragment extends Fragment {
         return view;
     }
 
+    /**
+     * load Data from DB
+     */
     private void loadData() {
         // load drugs for search
         medRef = FirebaseDatabase.getInstance().getReference(General.FB_Medicine);
@@ -87,6 +90,11 @@ public class MedicinesSearchFragment extends Fragment {
         docRef.addListenerForSingleValueEvent(docSearch);
     }
 
+    /**
+     * search doctors from DB
+     *
+     * @param snapshot doctors form DB
+     */
     private void docSearch(DataSnapshot snapshot) {
         ArrayList<String> names = new ArrayList<>();
         if (snapshot.exists()) {
@@ -95,7 +103,7 @@ public class MedicinesSearchFragment extends Fragment {
                 assert doc != null;
                 names.add("" + doc.getFirstName());
             }
-
+            // adapter for searchbar
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, names);
             search_med_ACACTV_search_doc.setAdapter(adapter);
             search_med_ACACTV_search_doc.setOnItemClickListener((parent, view, position, id) -> {
@@ -109,7 +117,11 @@ public class MedicinesSearchFragment extends Fragment {
         }
     }
 
-
+    /**
+     * search medicine from DB
+     *
+     * @param snapshot medicines form DB
+     */
     private void medSearch(DataSnapshot snapshot) {
         ArrayList<String> names = new ArrayList<>();
         if (snapshot.exists()) {
@@ -118,7 +130,7 @@ public class MedicinesSearchFragment extends Fragment {
                 assert m != null;
                 names.add(m.getName());
             }
-
+            // adapter for searchbar
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, names);
             search_med_ACACTV_search_bar.setAdapter(adapter);
             search_med_ACACTV_search_bar.setOnItemClickListener((parent, view, position, id) -> {

@@ -41,13 +41,9 @@ public class LoginFragment extends Fragment {
 
     private void initViews() {
         login_ACBTN_login.setOnClickListener(v -> {
-            boolean flag = true;
             String email = login_ACET_email.getText() + "";
-            flag = checkIfEmpty(email, "Email");
             String password = login_ACET_password.getText() + "";
-            flag = checkIfEmpty(password, "Password");
-
-            if (!flag) {
+            if (checkIfEmpty(email, "Email is Empty") || checkIfEmpty(password, "Password is Empty")) {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         loginFragment_callback.onLoginSuccess();
@@ -67,13 +63,20 @@ public class LoginFragment extends Fragment {
         login_ACET_email = view.findViewById(R.id.login_ACET_email);
     }
 
+    /**
+     * checks of EditText is empty
+     *
+     * @param obj the string to check
+     * @param msg the massage to display
+     * @return bool
+     */
     private boolean checkIfEmpty(String obj, String msg) {
         if (obj.isEmpty()) {
             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 
